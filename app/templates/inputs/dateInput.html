@@ -1,0 +1,11 @@
+<div ng-form="itemForm">
+    <input class="datepicker form-control"
+           type="text"
+           name="item"
+           value="{{value}}"
+           placeholder="Задайте дату"
+           data-date-format="dd.mm.yyyy">
+
+    <span class="error text-danger"
+          ng-show="itemForm.$invalid">Дата задана в неверном формате</span>
+</div>

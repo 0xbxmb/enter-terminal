@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru" ng-app="enterTerminal">
+<head>
+    <meta charset="utf-8">
+    <title>Рабочее место · Enter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/jquery.jscrollpane.css">
+
+    <link rel="stylesheet" href="lib/fuelux/fuelux.css">
+
+    <link rel="stylesheet" href="lib/fullcalendar/fullcalendar.css">
+
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font.css" cache="false">
+    <link rel="stylesheet" href="css/typeahead.css">
+    <link rel="stylesheet" href="css/datepicker.css">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/toaster.css">
+    <link rel="stylesheet" href="css/plugin.css">
+    <link rel="stylesheet" href="css/ct-buttons.css">
+    <link rel="stylesheet" href="css/app-overload.css">
+    <link rel="icon" type="image/png" href="favicon.png"/>
+</head>
+
+<body class="blue-bg" ng-controller="IndexCtrl">
+
+<section class="hbox stretch">
+    <section id="content">
+        <section class="vbox">
+
+            <header class="header bg-white ">
+                <div class="text-center">
+                    <span id="logo" alt="Система управления очередью «Энтер»" >&nbsp;</span>
+                </div>
+            </header>
+
+            <section class=" wrapper m-t-sm" >
+                <div class="animated fadeInUp full-height " ng-show="connection.isConnected">
+                    <ng-view class="main-column">
+                    </ng-view>
+                </div>
+                <os-notifier></os-notifier>
+            </section>
+
+            <footer class="footer b-t main-footer">
+                <div ng-include="footer.templateUrl" ng-show="footer.templateUrl">
+                </div>
+            </footer>
+
+        </section>
+    </section>
+</section>
+
+
+
+
+<script src="lib/jquery/jquery-2.0.3.js"></script>
+
+<script src="lib/jquery.mousewheel.js"></script>
+<script src="lib/jquery.jscrollpane.min.js"></script>
+
+<script src="lib/underscore.js"></script>
+<script src="lib/autobahn.min.js"></script>
+<script src="lib/bootstrap/js/bootstrap.js"></script>
+<script src="lib/typeahead.min.js"></script>
+<script src="lib/angular/angular.js"></script>
+<script src="lib/angular/angular-locale_ru.js"></script>
+<script src="lib/angular/angular-cookies.min.js"></script>
+<script src="lib/datepicker/bootstrap-datepicker.js"></script>
+<script src="lib/datepicker/bootstrap-datepicker.ru.js"></script>
+
+<script src="lib/fullcalendar/fullcalendar.min.js"></script>
+
+<script src="lib/fuelux/fuelux.js"></script>
+<script src="lib/angular-local-storage.js"></script>
+
+<!-- app -->
+<script src="js/app.js"></script>
+<script src="js/config.js"></script>
+
+<!-- app.services -->
+<script src="js/services/wamp.js"></script>
+<script src="js/services/ticket.js"></script>
+<script src="js/services/settings.js"></script>
+<script src="js/services/notifier.js"></script>
+<script src="js/services/menu.js"></script>
+<script src="js/services/record.js"></script>
+<!-- end app.services -->
+
+<!-- app.directives -->
+<script src="js/directives/typeahead.js"></script>
+<script src="js/directives/notifier.js"></script>
+<script src="js/directives/menu.js"></script>
+<script src="js/directives/onEnter.js"></script>
+<script src="js/directives/scrollBar.js"></script>
+<!-- end app.directives -->
+
+<!-- app.controllers -->
+<script src="js/controllers/index.js"></script>
+<script src="js/controllers/main.js"></script>
+<script src="js/controllers/record.js"></script>
+<script src="js/controllers/settings.js"></script>
+<script src="js/controllers/ticketProduct.js"></script>
+<!-- end app.controllers -->
+
+<!-- end app -->
+</body>
+</html>

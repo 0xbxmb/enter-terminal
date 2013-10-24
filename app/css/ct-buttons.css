@@ -1,0 +1,265 @@
+button.os-btn.l-btn,
+a.os-btn.l-btn{
+    min-width: 122px;
+}
+
+a.os-btn[disabled],
+button.os-btn[disabled]
+{
+    cursor: default !important;
+    background: #C0C0C0 !important;
+    border: solid #cecece 2px !important;
+    cursor: default !important;
+    color: graytext !important;
+}
+
+/*Кнопка*/
+button.os-btn,
+a.os-btn{
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 13px;
+    display: inline-block;
+    line-height: 24px;
+    color: #000;
+    background: #cecece;
+    border: solid #cecece 2px;
+    min-width: 175px;
+}
+
+button.os-btn.big,
+a.os-btn.big{
+    font-size: 20px;
+    line-height: 50px;
+}
+
+
+button.os-btn:hover,
+a.os-btn:hover {
+    background: #87bdf6;
+    border: solid #99cafe 2px;
+}
+
+button.os-btn:active,
+a.os-btn:active{
+    color: #fff;
+    border: solid  #2cb1e3 2px;
+    background: #259dc5;
+}
+
+.os-btn::selection{
+    background: transparent;
+}
+/*Кнопка*/
+
+
+
+/*Конпка со стрелкой*/
+button.a-btn,
+a.a-btn {
+    position: relative;
+    border: solid #cecece 2px;
+    background: #cecece;
+}
+
+a[disabled].a-r::after,
+button[disabled].a-r::after,
+a[disabled].a-l::before,
+button[disabled].a-l::before
+{
+    background: #C0C0C0 !important;
+    border: solid #cecece 2px !important;
+    cursor: default !important;
+}
+
+button.a-btn::before,
+a.a-btn::before,
+button.a-btn::after,
+a.a-btn::after {
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    width: 28px;
+    height: 28px;
+    -webkit-transform: rotate(135deg) skewX(-10deg) skewY(-10deg);
+    transform: rotate(135deg) skewX(-10deg) skewY(-10deg);
+    content: '';
+}
+
+button.big.a-btn::before, a.big.a-btn::before,
+button.big.a-btn::after, a.big.a-btn::after {
+    cursor: pointer;
+    position: absolute;
+    top: 13px;
+    width: 44px;
+    height: 44px;
+    -webkit-transform: rotate(135deg) skewX(-10deg) skewY(-10deg);
+    transform: rotate(135deg) skewX(-10deg) skewY(-10deg);
+    content: '';
+}
+
+
+.a-l::before,
+.a-r::after{
+    background: #cecece;
+}
+
+a.os-btn.a-btn.a-l::before,
+button.os-btn.a-btn.a-l::before{
+    left: -16px;
+    border-left: none !important;
+    border-top: none !important;
+
+}
+
+a.os-btn.a-btn.a-l.big::before,
+button.os-btn.a-btn.a-l.big::before{
+    left: -24px;
+    border-left: none !important;
+    border-top: none !important;
+
+}
+
+
+
+
+a.os-btn.a-btn.a-r.big::after,
+button.os-btn.a-btn.a-r.big::after{
+    right: -16px;
+    border-right: none !important;
+    border-bottom: none !important;
+}
+
+
+a.os-btn.a-btn.a-r.big::after,
+button.os-btn.a-btn.a-r.big::after{
+    right: -24px;
+    border-right: none !important;
+    border-bottom: none !important;
+}
+
+
+
+
+
+
+
+
+button.a-btn.a-l:hover::before,
+a.a-btn.a-l:hover::before,
+button.a-btn.a-r:hover::after,
+a.a-btn.a-r:hover::after {
+    color: #fff;
+    background: #87BDF6;
+    border: #99CAFE solid;
+}
+
+button.a-btn.a-l:active::before,
+a.a-btn.a-l:active::before,
+button.a-btn.a-r:active::after,
+a.a-btn.a-r:active::after {
+    background: #259DC5;
+    border: #2cb1e3 solid;
+}
+
+/*Конпка со стрелкой*/
+
+/*Оформление*/
+.os-btn.blue{
+    color: #fff;
+    border: solid #3774a5 2px;
+    background: rgb(23,89,141);
+    background: -moz-linear-gradient(top,  rgba(23,89,141,1) 1%, rgba(68,125,170,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(23,89,141,1)), color-stop(100%,rgba(68,125,170,1)));
+    background: -webkit-linear-gradient(top,  rgba(23,89,141,1) 1%,rgba(68,125,170,1) 100%);
+    background: -o-linear-gradient(top,  rgba(23,89,141,1) 1%,rgba(68,125,170,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(23,89,141,1) 1%,rgba(68,125,170,1) 100%);
+    background: linear-gradient(to bottom,  rgba(23,89,141,1) 1%,rgba(68,125,170,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#17598d', endColorstr='#447daa',GradientType=0 );
+}
+
+.a-btn.blue.a-r::after,
+.a-btn.blue.a-l::before{
+    color: #fff;
+    border: solid #3774a5 2px;
+    background: #263545 linear-gradient(45deg, #17598d 1%, #447daa 100% );
+}
+
+.os-btn.green{
+    color: #fff;
+    border: solid #619b53 2px;
+    background: rgb(69,131,53);
+    background: -moz-linear-gradient(top,  rgba(69,131,53,1) 0%, rgba(107,161,93,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(69,131,53,1)), color-stop(100%,rgba(107,161,93,1)));
+    background: -webkit-linear-gradient(top,  rgba(69,131,53,1) 0%,rgba(107,161,93,1) 100%);
+    background: -o-linear-gradient(top,  rgba(69,131,53,1) 0%,rgba(107,161,93,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(69,131,53,1) 0%,rgba(107,161,93,1) 100%);
+    background: linear-gradient(to bottom,  rgba(69,131,53,1) 0%,rgba(107,161,93,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#458335', endColorstr='#6ba15d',GradientType=0 );
+}
+.a-btn.green.a-r::after,
+.a-btn.green.a-l::before{
+    color: #fff;
+    border: solid #619b53 2px;
+    background: #263545 linear-gradient(45deg, #458335 1%, #6ba15d 100% );
+}
+
+.os-btn.red{
+    color: #fff;
+    border: solid #b95152 2px;
+    background: rgb(162,51,52);
+    background: -moz-linear-gradient(top,  rgba(162,51,52,1) 0%, rgba(188,92,92,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(162,51,52,1)), color-stop(100%,rgba(188,92,92,1)));
+    background: -webkit-linear-gradient(top,  rgba(162,51,52,1) 0%,rgba(188,92,92,1) 100%);
+    background: -o-linear-gradient(top,  rgba(162,51,52,1) 0%,rgba(188,92,92,1) 100%);
+    background: -ms-linear-gradient(top,  rgba(162,51,52,1) 0%,rgba(188,92,92,1) 100%);
+    background: linear-gradient(to bottom,  rgba(162,51,52,1) 0%,rgba(188,92,92,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a23334', endColorstr='#bc5c5c',GradientType=0 );
+
+}
+.a-btn.red.a-r::after,
+.a-btn.red.a-l::before{
+    color: #fff;
+    border: solid #b95152 2px;
+    background: #263545 linear-gradient(45deg, #a23334 1%, #bc5c5c 100% );
+}
+
+a.os-btn.multiline,
+button.os-btn.multiline{
+    line-height: 16px;
+    text-align: left;
+    padding: 6px 10px;
+}
+
+a.os-btn.big.multiline,
+button.os-btn.big.multiline {
+    line-height: 25px;
+    text-align: left;
+    padding: 10px 35px;
+}
+
+.list-btn
+{
+    line-height: 13px !important;
+    padding: 6px 15px !important;
+    font-size: 11px !important;
+    font-weight: normal !important;
+}
+
+/*Оформление*/
+
+
+
+
+button.a-btn,
+a.a-btn {
+    position: relative;
+    border: solid #cecece 2px;
+    background: #cecece;
+}
+
+

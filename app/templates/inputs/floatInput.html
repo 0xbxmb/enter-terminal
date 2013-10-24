@@ -1,0 +1,10 @@
+<div ng-form="itemForm">
+
+    <input type="text"
+           class="form-control"
+           ng-model="value"
+           name="item"
+           float-checking />
+
+    <span class="error text-danger" ng-show="itemForm.$invalid">Значение должно быть неотрицательным числом</span>
+</div>

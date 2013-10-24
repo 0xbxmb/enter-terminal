@@ -1,0 +1,42 @@
+<div>
+
+    <div class="modal overlay" ng-class="{'show' : !connection.isConnected }">
+        <div class="as-table">
+            <div class="centrify text-center">
+                <div class="logo-blue connecting-message"></div>
+                <div class="m-b-lg">Соединение с сервером</div>
+                <div class="wait-indicator m-0-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal overlay" ng-class="{'show' : details.currentMessage }"
+         ng-click="details.hide()">
+        <div class="as-table">
+            <div class="centrify pointer-cursor">
+                <div class="text-center">
+                    <div class="details-message">
+                        {{details.currentMessage}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal error-overlay" ng-class="{'show' : errors.currentMessage }">
+        <div class="as-table">
+            <div class="centrify">
+                <div class="error-message">
+                    <h3 class="m-t-sm">Ошибка приложения</h3>
+                    <h4 class="lh-15">
+                        {{errors.currentMessage}}
+                    </h4>
+                    <div class="to-middle m-t-sm">
+                        <a class="os-btn" ng-click="errors.hide()">OK</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
