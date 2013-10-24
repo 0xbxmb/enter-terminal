@@ -553,11 +553,10 @@ td.fc-widget-content {
     border: none;
 }
 
-
 td.fc-widget-content > div{
     position: absolute;
     top: 0;
-
+    min-height: inherit !important;
     bottom: 0;
     margin: 4px;
     left: 0;
