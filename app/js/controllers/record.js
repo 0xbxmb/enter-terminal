@@ -16,6 +16,8 @@ enterTerminal.controller('RecordCtrl', function ($rootScope, $scope, $log, $loca
         titleFormat: {
             month: 'MMMM'
         },
+
+        weekMode:"liquid",
         firstDay: 1,
         dayNamesShort : [ 'вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
         monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
