@@ -1,7 +1,13 @@
-<h1 class="m-t-none text-center font-normal">Электронная очередь</h1>
+<h1 class="m-t-none text-center font-normal">
+    <div ng-hide="selectedService">Электронная очередь</div>
+    <div ng-show="selectedService" style="font-size: 45px; line-height: 1.5em">{{selectedService.Name}}</div>
+</h1>
 
 <div class="m-t-lg2 m-l-lg m-r-lg">
-    <menu items="menu"></menu>
+    <menu items="menu"
+          selected-service="selectedService"
+          to-queue-method="toQueueMethod"
+          record-method="recordMethod"></menu>
 </div>
 
 

@@ -1,31 +1,32 @@
 <div>
     <div ng-show="!selectedService">
         <!--<scroll-bar></scroll-bar>-->
-            <div class="buttons-list" style="width: 100%">
-                <div class="row">
+        <div class="buttons-list">
+            <div class="row">
 
-                    <div ng-repeat="item in displayData" class="buttons-list-item m-b-sm col-sm-6">
-                        <div class="as-table">
-                            <a class="centrify text-center" href="" ng-click="select($event, item)">
-                                <div style="position: relative">
-                                    <div class="text text-center">{{item.Name}}</div>
-                                    <div class="details pull-left" ng-click="showDetails($event, item);" ng-show="item.FullName">...</div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
+                <div ng-repeat="item in displayData" class="buttons-list-item m-b-sm col-sm-6">
+                    <div class="as-table">
+                        <a class="centrify text-center" href="" ng-click="select($event, item)">
+                            <div style="position: relative">
+                                <div class="text text-center">{{item.Name}}</div>
+                                <div class="details pull-left" ng-click="showDetails($event, item);" ng-show="item.FullName">...</div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 
-    <div ng-show="selectedService">
+    <div ng-show="selectedService" class="m-t-lg2">
 
-        <div class="row">
-            <div class="buttons-list" style="width: 100%">
+        <div class="row m-t-lg2">
+            <div class="buttons-list">
+
                 <div class="buttons-list-item m-b-sm col-sm-6 ng-scope">
                     <div class="as-table">
-                        <a class="centrify text-center" href="" ng-click="select($event, item)">
+                        <a class="centrify text-center" href="" ng-click="toQueue()">
                             <div style="position: relative">
                                 <div class="text text-center ng-binding">Живая очередь</div>
                                 <div class="clearfix"></div>

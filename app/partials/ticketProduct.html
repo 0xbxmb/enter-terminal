@@ -1,46 +1,22 @@
-<h1 class="m-t-none text-center font-normal">Выбранные услуги</h1>
+<div style="width: 700px; height: 90%; margin: 0 auto">
 
-<div style="width: 700px; margin: 0 auto">
-
-    <!--<scroll-bar class="m-t-lg2 ">-->
-        <div class="ticket-product m-t-lg">
-
-            <div class="item">
-                <div class="date text-center">24 октября<br>10:30</div>
-                <div class="info">Назначение и выплата ежемесячного пособия по уходу за ребенком (ФСС)</div>
-                <div class="cancel text-center"><a href="">Отменить</a></div>
+    <div ng-hide="ticket">
+        <h1 class="m-t-none text-center font-normal">Выбранные услуги</h1>
+        <!--<scroll-bar class="m-t-lg2 ">-->
+            <div class="ticket-product m-t-lg">
+                <div class="item" ng-repeat="product in ticketProduct.Products">
+                    <div class="date text-center">{{getDate(product.StartTime)}}<br>{{getTime(product.StartTime)}}</div>
+                    <div class="info">{{product.Name}}</div>
+                    <div class="cancel text-center"><a href="" ng-click="cancel(product)">Отменить</a></div>
+                </div>
             </div>
+        <!--</scroll-bar>-->
+    </div>
 
-            <div class="item">
-                <div class="date text-center">24 октября<br>10:30</div>
-                <div class="info">Назначение и выплата ежемесячного пособия по уходу за ребенком (ФСС)</div>
-                <div class="cancel text-center"><a href="">Отменить</a></div>
-            </div>
-
-            <div class="item">
-                <div class="date text-center">24 октября<br>10:30</div>
-                <div class="info">Назначение и выплата ежемесячного пособия по уходу за ребенком (ФСС)</div>
-                <div class="cancel text-center"><a href="">Отменить</a></div>
-            </div>
-
-            <div class="item">
-                <div class="date text-center">24 октября<br>10:30</div>
-                <div class="info">Назначение и выплата ежемесячного пособия по уходу за ребенком (ФСС)</div>
-                <div class="cancel text-center"><a href="">Отменить</a></div>
-            </div>
-
-            <div class="item" >
-                <div class="date text-center">24 октября<br>10:30</div>
-                <div class="info">Назначение и выплата ежемесячного пособия по уходу за ребенком (ФСС)</div>
-                <div class="cancel text-center"><a href="">Отменить</a></div>
-            </div>
-
-            <div class="item">
-                <div class="date text-center">24 октября<br>10:30</div>
-                <div class="info">Назначение и выплата ежемесячного пособия по уходу за ребенком (ФСС)</div>
-                <div class="cancel text-center"><a href="">Отменить</a></div>
-            </div>
-
+    <div ng-show="ticket" ng-click="finish()" class="as-table">
+        <div class="centrify">
+            <div class="text-center font-bold" style="font-size: 95px">Ваш талон</div>
+            <div class="text-center font-bold" style="font-size: 155px; color: #fff96b;">{{ticket.FullNumber}}</div>
         </div>
-    <!--</scroll-bar>-->
+    </div>
 </div>

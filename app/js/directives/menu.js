@@ -8,15 +8,15 @@ enterTerminal.directive("menu", function (notifier, $location) {
 
     var
         MAX_ITEM_NAME_LENGTH = 200,
-        templateUrl = "templates/productMenu.html",
+        templateUrl = "templates/menu.html",
         replace = true,
         restrict = 'E',
         scope = {
             items: "=",
-            applyRedirectMethod: "&",
-            cancelMethod: "&"
+            selectedService: "=",
+            recordMethod: "=",
+            toQueueMethod: "="
         },
-
         createViewData = function (data) {
             var i;
             for (i = 0; i < data.Items.length; i += 1) {
@@ -40,13 +40,12 @@ enterTerminal.directive("menu", function (notifier, $location) {
                     forDisplay.push(data.Items[i]);
                 }
             }
-
             forDisplay.sort(function (item) {
                 return item.Order;
             });
-
             return forDisplay;
         },
+
         link = function ($scope, iElement, iAttrs) {
             $scope.selectedService = null;
             $scope.currentParent = null;
@@ -62,7 +61,6 @@ enterTerminal.directive("menu", function (notifier, $location) {
             };
 
             $scope.showDetails = function ($event, item) {
-
                 if ($event.stopPropagation) {
                     $event.stopPropagation();
                 }
@@ -75,7 +73,6 @@ enterTerminal.directive("menu", function (notifier, $location) {
             };
 
             $scope.$watch("items", function (data) {
-
                 if (data && data.Items) {
                     $scope.data = createViewData(angular.copy(data));
                     $scope.displayData = getDataForDisplay($scope.data, null);
@@ -89,25 +86,14 @@ enterTerminal.directive("menu", function (notifier, $location) {
 //                $(".scroll-pane").data('jsp').reinitialise();
             };
 
-
-
-            $scope.cancel = function () {
-                $scope.cancelMethod();
-            };
-
-
             $scope.$parent.back = $scope.back;
 
-            $scope.applyRedirect = function () {
-                $scope.$parent.item = $scope.selectedService;
-                $scope.applyRedirectMethod($scope.selectedService);
-            };
-
             $scope.record = function () {
-                $location.path("/record");
+                $scope.recordMethod();
             };
-
-
+            $scope.toQueue = function () {
+                $scope.toQueueMethod();
+            };
         };
 
     return {
@@ -117,5 +103,4 @@ enterTerminal.directive("menu", function (notifier, $location) {
         link: link,
         scope: scope
     };
-
 });

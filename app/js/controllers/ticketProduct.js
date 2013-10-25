@@ -2,32 +2,78 @@
  * Created by i.sungurov on 03.10.13.
  */
 
-enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log,  $location, ticket, notifier) {
+enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log,  $location, $timeout, ticketOperations, notifier) {
 
     'use strict';
 
-    $scope.getLocalDate = function (item) {
-        //TODO: пока так.
-        return item.StartTime.substr(item.StartTime.indexOf("T") + 1, 5);
+    $scope.ticket = null;
+
+    $scope.getDate = function (date) {
+        var monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
+                            'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            d = new Date(date);
+
+        return d.getDate() + " " + monthNames[d.getMonth()];
     };
 
-    $scope.cancel = function () {
+    $scope.getTime= function (date) {
+        return date.substr(date.indexOf("T") + 1, 5);
+    };
+
+    $scope.finish = function () {
+
+        $scope.ticket = null;
+        $rootScope.ticketProduct = null;
         $location.path("/main");
+
+    };
+
+    $scope.cancel = function (product) {
+        ticketOperations.unselectProduct(product.Id).then(function (data) {
+
+            $rootScope.ticketProduct = data;
+
+        }, function (data) {
+
+            notifier.errors.currentMessage = data;
+
+        });
     };
 
     $rootScope.footer = {
+
         templateUrl:"templates/footers/ticketProductFooter.html",
+
         actions: {
+
             cancelAll: function () {
-                alert("cancelAll");
+                ticketOperations.cancelTicket($rootScope.ticketProduct.Id).then( function (data) {
+                    $rootScope.ticketProduct = null;
+                    $location.path("/main");
+                }, function (data) {
+                    notifier.errors.currentMessage = data;
+                });
             },
+
             addNew: function () {
                 $location.path("/main");
             },
+
             printTicket: function () {
-                alert("printTicket");
+                ticketOperations.confirmTicket($rootScope.ticketProduct.Id).then(function (data) {
+                    $scope.ticket = data;
+                    $rootScope.footer = null;
+                }, function (data) {
+                    notifier.errors.currentMessage = data;
+                })
             }
         }
     };
 
+    $scope.$watch("ticket", function (data) {
+        if (data) {
+            var showTicketDelay = 5000;
+            $timeout($scope.finish, showTicketDelay);
+        }
+    });
 });

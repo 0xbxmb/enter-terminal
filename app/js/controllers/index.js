@@ -3,7 +3,7 @@
  */
 
 enterTerminal.controller('IndexCtrl', function ($rootScope, $scope, $location,  $log,
-                                                wamp, ticket, menu, notifier) {
+                                                wamp, ticketOperations, menu, notifier) {
 
     'use strict';
 
@@ -28,4 +28,9 @@ enterTerminal.controller('IndexCtrl', function ($rootScope, $scope, $location,  
         $rootScope.footer = null;
     });
 
+    ticketOperations.selectProduct([0,null, null]).then( function (data) {
+        debugger;
+    }, function (data) {
+        debugger;
+    });
 });
