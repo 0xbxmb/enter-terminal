@@ -546,6 +546,15 @@ td.fc-widget-content {
     border: none;
 }
 
+
+.fc-grid .fc-day-content{
+    clear: both;
+    padding: 2px 2px 1px;
+    text-align: center;
+    font-size: 20px;
+    color: #6F757A;
+}
+
 td.fc-widget-content > div{
 
     /*position: absolute;*/
@@ -576,3 +585,4 @@ td.fc-widget-content > div{
 .fc-state-highlight{
     background: none;
 }
+
