@@ -16,6 +16,7 @@ enterTerminal.service('settings', function (localStorageService) {
                 value: "",
                 defaultValue: "ws://localhost:81"
             },
+
             clientId: {
                 value: "",
                 defaultValue: "terminal"

@@ -25,12 +25,10 @@ enterTerminal.controller('IndexCtrl', function ($rootScope, $scope, $location,  
     $rootScope.ticketProduct = null;
 
     $scope.$on('$routeChangeStart', function(next, current) {
+     /*   if(!$rootScope.ticketProduct && ($location.path() !== "/main" && $location.path() !== "/settings")){
+            $location.path("/main");
+        }*/
         $rootScope.footer = null;
     });
 
-    ticketOperations.selectProduct([0,null, null]).then( function (data) {
-        debugger;
-    }, function (data) {
-        debugger;
-    });
 });

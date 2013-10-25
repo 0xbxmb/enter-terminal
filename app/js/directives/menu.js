@@ -15,7 +15,8 @@ enterTerminal.directive("menu", function (notifier, $location) {
             items: "=",
             selectedService: "=",
             recordMethod: "=",
-            toQueueMethod: "="
+            toQueueMethod: "=",
+            buttonStates: "="
         },
         createViewData = function (data) {
             var i;
@@ -58,6 +59,7 @@ enterTerminal.directive("menu", function (notifier, $location) {
                     $scope.displayData = getDataForDisplay($scope.data, item.Id);
                 }
                 $scope.currentParent = item;
+                $scope.buttonStates.back.isActive = true;
             };
 
             $scope.showDetails = function ($event, item) {
@@ -82,6 +84,7 @@ enterTerminal.directive("menu", function (notifier, $location) {
             $scope.back = function () {
                 $scope.selectedService = null;
                 $scope.currentParent = $scope.currentParent.ParentItem;
+                $scope.buttonStates.back.isActive = ($scope.currentParent !== null);
                 $scope.displayData = getDataForDisplay($scope.data, (($scope.currentParent) ? $scope.currentParent.Id : null));
 //                $(".scroll-pane").data('jsp').reinitialise();
             };

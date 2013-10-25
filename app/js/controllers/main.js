@@ -22,18 +22,22 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     };
 
     $rootScope.footer = {
-
-        templateUrl:"templates/footers/mainFooter.html",
-
+        templateUrl:"templates/footers/main.html",
         actions: {
-
             back: function () {
                 $scope.back();
             },
-
             showTicketProduct: function () {
                 $location.path("/ticketProduct");
             }
+        },
+        states: {
+            back:{
+                isActive: false
+            }/*,
+            showTicketProduct:{
+                isActive: true
+            }*/
         }
     };
 

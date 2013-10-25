@@ -21,28 +21,25 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
     };
 
     $scope.finish = function () {
-
         $scope.ticket = null;
         $rootScope.ticketProduct = null;
         $location.path("/main");
-
     };
 
     $scope.cancel = function (product) {
         ticketOperations.unselectProduct(product.Id).then(function (data) {
-
             $rootScope.ticketProduct = data;
-
+            if (!data) {
+                $location.path("/main");
+            }
         }, function (data) {
-
             notifier.errors.currentMessage = data;
-
         });
     };
 
     $rootScope.footer = {
 
-        templateUrl:"templates/footers/ticketProductFooter.html",
+        templateUrl:"templates/footers/ticketProduct.html",
 
         actions: {
 

@@ -3,7 +3,5 @@
  */
 
 enterTerminal.service('record', function ($q, $log, $rootScope, wamp) {
-
     'use strict';
-
 });
