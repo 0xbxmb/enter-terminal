@@ -6,17 +6,23 @@ enterTerminal.controller('RecordCtrl', function ($rootScope, $scope, $log, $loca
 
     'use strict';
 
+/**/
+    $scope.monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
+        'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+
+
+    function getMonthName(){
+
+    }
 
     function calculateHeight() {
         return $(".wrapper").height() - 100;
     }
-
     $('.calendar').fullCalendar({
         weekMode: "liquid",
         firstDay: 1,
         dayNamesShort: [ 'вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
-        monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
-                        'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+        monthNames: $scope.monthNames,
         monthNamesShort: ['Янв.', 'Фев.', 'Март', 'Апр.', 'Май', 'οюнь', 'οюль', 'Авг.', 'Сент.', 'Окт.', 'Ноя.', 'Дек.'],
         dayNames: ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
         buttonText: {
@@ -32,7 +38,7 @@ enterTerminal.controller('RecordCtrl', function ($rootScope, $scope, $log, $loca
         header: {
             left: '', //prev,next
             center: 'title',
-            right: 'today'//,month,agendaWeek,agendaDay
+            right: ''//today,month,agendaWeek,agendaDay
         },
         titleFormat: {
             month: 'MMMM'
@@ -40,8 +46,10 @@ enterTerminal.controller('RecordCtrl', function ($rootScope, $scope, $log, $loca
         dayClick: function () {
             alert('a day has been clicked!');
         },
-
-        height: calculateHeight()
+        height: calculateHeight(),
+        viewRender: function(view, element){
+            $scope.currentDate = $('.calendar').fullCalendar('getDate')
+        }
     });
 
     $('.calendar').fullCalendar('render');
@@ -51,5 +59,27 @@ enterTerminal.controller('RecordCtrl', function ($rootScope, $scope, $log, $loca
             $('.calendar').fullCalendar('option', 'height', calculateHeight());
         });
     });
+
+    $scope.prev = function (){
+        $('.calendar').fullCalendar('prev');
+    };
+
+    $scope.next = function (){
+        $('.calendar').fullCalendar('next');
+    };
+
+    $scope.$watch("currentDate", function() {
+
+        if($scope.currentDate) {
+            var month = $scope.currentDate.getMonth(),
+                lastMonthIndex = 11,
+                firstMonthIndex = 0;
+
+            $scope.prevMonthName =  $scope.monthNames[ ((month == firstMonthIndex ) ?  lastMonthIndex :  month - 1) ];
+            $scope.nextMonthName =  $scope.monthNames[ ((month == lastMonthIndex ) ? firstMonthIndex : month + 1) ] ;
+        }
+    });
+
+
 
 });

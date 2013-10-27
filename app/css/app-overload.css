@@ -553,6 +553,7 @@ td.fc-widget-content {
     text-align: center;
     font-size: 20px;
     color: #6F757A;
+    line-height: 1em;
 }
 
 td.fc-widget-content > div{
