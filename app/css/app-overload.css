@@ -349,6 +349,13 @@ footer.main-footer{
     padding-left: 10px;
 }
 
+.buttons-list a .time{
+    padding: 10px 20px;
+    color: #474747;
+    font-size: 35px
+}
+
+
 .buttons-list a:hover{
     background: #E9ECEE;
 }
@@ -587,3 +594,11 @@ td.fc-widget-content > div{
     background: none;
 }
 
+.fc-event-title{
+    padding: 2px;
+    font-size: 16px;
+
+}
+.fc-event-inner{
+    text-align: center;
+}

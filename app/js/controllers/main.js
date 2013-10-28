@@ -9,15 +9,23 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     $scope.selectedService = null;
 
     $scope.recordMethod = function () {
+
         $location.path("/record");
+        $rootScope.selectedService = $scope.selectedService;
+
     };
 
     $scope.toQueueMethod = function () {
+
         ticketOperations.selectProduct([$scope.selectedService.Id, null, null]).then(function (data) {
+
             $rootScope.ticketProduct = data;
             $location.path("/ticketProduct");
+
         }, function (data) {
+
             notifier.errors.currentMessage = data.desc;
+
         });
     };
 

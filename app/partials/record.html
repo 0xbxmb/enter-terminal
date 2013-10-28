@@ -1,148 +1,56 @@
-<div style="position: relative" class="hidden">
+
+<div ng-hide="timeSelecting">
     <div style="position: absolute; min-width: 900px;  width: 100%;">
         <button class="os-btn blue a-btn a-l m-t-sm big pull-left m-l-lg"
-                ng-click="prev()">
-            <div class="text-center">{{prevMonthName}}</div>
+                ng-click="prevMonth()">
+            <div class="text-center">{{prevMonthLabel}}</div>
         </button>
 
         <button class="os-btn blue a-btn a-r m-t-sm big pull-right m-r-lg"
-                ng-click="next()">
-            <div class="text-center">{{nextMonthName}}</div>
+                ng-click="nextMonth()">
+            <div class="text-center">{{nextMonthLabel}}</div>
         </button>
 
         <div class="clearfix"></div>
     </div>
-
     <div class="calendar" style="min-width: 900px; max-width: 1100px; margin: 0 auto"></div>
-
 </div>
 
-<div style="position: relative">
-    <div class="text-center"><h2 class="fc-header-title " style="font-size: 55px">Среда, 30 октября</h2></div>
+
+<div ng-show="timeSelecting">
+    <div class="text-center">
+        <h2 class="fc-header-title " style="font-size: 55px">{{dayOfWeek(currentDate)}}</h2>
+    </div>
 
     <div style="position: absolute; min-width: 900px;  width: 100%; top: 0">
+
         <button class="os-btn blue a-btn a-l l-btn m-t-sm big pull-left m-l-lg"
-                ng-click="prev()">
-            <div class="text-center">29</div>
+                ng-click="prevDay()">
+            <div class="text-center" style="font-size: 40px">{{prevDayLabel}}</div>
         </button>
 
         <button class="os-btn blue a-btn a-r l-btn m-t-sm big pull-right m-r-lg"
-                ng-click="next()">
-            <div class="text-center">31</div>
+                ng-click="nextDay()">
+            <div class="text-center" style="font-size: 40px">{{nextDayLabel}}</div>
         </button>
 
         <div class="clearfix"></div>
     </div>
 
-<!--    <div class="row">
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-        <div class="col-sm-1">09:00</div>
-    </div>-->
-
-
-    <div class="buttons-list m-t-lg2" >
-
-        <div class="m-t-lg2"  style="min-width: 900px; max-width: 1100px; margin: 0 auto">
-
+    <div class="buttons-list m-t-lg2">
+        <div class="m-t-lg2" style="min-width: 900px; max-width: 1100px; margin: 0 auto">
             <div class="row m-t-lg2">
-
-
-                <!--ng-repeat="item in displayData"-->
-
-                <div  class="buttons-list-item m-b-sm col-sm-2">
+                <div class="buttons-list-item m-b-xs col-xs-2 " style="width: 12.5%" ng-repeat="item in daySchedule">
                     <div class="as-table">
                         <a class="centrify text-center" href="" ng-click="select($event, item)">
                             <div style="position: relative">
-                                <div class="text text-center">{{item.Name}}</div>
+                                <div class="time text-center">{{rectime(item.Minutes)}}</div>
                             </div>
                         </a>
                     </div>
                 </div>
-
-
-                <div  class="buttons-list-item m-b-sm col-sm-2">
-                    <div class="as-table">
-                        <a class="centrify text-center" href="" ng-click="select($event, item)">
-                            <div style="position: relative">
-                                <div class="text text-center">{{item.Name}}</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div  class="buttons-list-item m-b-sm col-sm-2">
-                    <div class="as-table">
-                        <a class="centrify text-center" href="" ng-click="select($event, item)">
-                            <div style="position: relative">
-                                <div class="text text-center">{{item.Name}}</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div  class="buttons-list-item m-b-sm col-sm-2">
-                    <div class="as-table">
-                        <a class="centrify text-center" href="" ng-click="select($event, item)">
-                            <div style="position: relative">
-                                <div class="text text-center">{{item.Name}}</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div  class="buttons-list-item m-b-sm col-sm-2">
-                    <div class="as-table">
-                        <a class="centrify text-center" href="" ng-click="select($event, item)">
-                            <div style="position: relative">
-                                <div class="text text-center">{{item.Name}}</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div  class="buttons-list-item m-b-sm col-sm-2">
-                    <div class="as-table">
-                        <a class="centrify text-center" href="" ng-click="select($event, item)">
-                            <div style="position: relative">
-                                <div class="text text-center">{{item.Name}}</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div  class="buttons-list-item m-b-sm col-sm-2">
-                    <div class="as-table">
-                        <a class="centrify text-center" href="" ng-click="select($event, item)">
-                            <div style="position: relative">
-                                <div class="text text-center">{{item.Name}}</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-
-
-
             </div>
-
         </div>
-
-
     </div>
-
-
 
 </div>

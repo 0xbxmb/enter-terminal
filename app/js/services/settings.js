@@ -12,6 +12,7 @@ enterTerminal.service('settings', function (localStorageService) {
         prefix = "terminal.",
 
         settings = {
+
             wampServerUrl: {
                 value: "",
                 defaultValue: "ws://localhost:81"
