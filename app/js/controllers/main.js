@@ -12,7 +12,6 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     $scope.selectedService = null;
     $scope.currentDate = new Date();
 
-
     var
         capitalizeString = function (string) {
             return string.charAt(0).toUpperCase() + string.slice(1);
@@ -57,8 +56,12 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         getMonthEvents = function(date) {
             ticketOperations.getMonthSchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1])
                 .then(function (data) {
+
                     $scope.monthSchedule = data;
-                    $('.calendar').fullCalendar( 'addEventSource', createEventsViewModel(date.getFullYear(), date.getMonth(), data));
+//                  $('.calendar').fullCalendar('render');
+                    $('.calendar').fullCalendar( 'addEventSource', createEventsViewModel(date.getFullYear(), date.getMonth() , data));
+
+
                 }, function (data) {
                     notifier.errors.currentMessage = data.desc;
                 });
@@ -70,7 +73,34 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
                 }, function (data) {
                     notifier.errors.currentMessage = data.desc;
                 });
+        },
+
+        dayClick = function (date) {
+            if($(this).hasClass("disabled")){
+                return;
+            }
+            $scope.$apply(function () {
+                $scope.phase = 2;
+                $scope.currentDate = date;
+                getMonthEvents($scope.currentDate);
+            });
+        },
+
+        refresh = function (date, cell)  {
+            if(date.getMonth() !== $scope.currentDate.getMonth()){
+                $(cell).addClass("disabled");
+                return;
+            }
+            var
+                day = date.getDate(),
+                t = _.any($scope.monthSchedule, function(value, index){
+                    return (value.Day === day);
+                });
+            if (!t) {
+                $(cell).addClass("disabled");
+            }
         };
+
 
     $('.calendar').fullCalendar({
         weekMode: "liquid",
@@ -99,30 +129,10 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
             month: 'MMMM'
         },
 
-        dayClick: function (clickedDate) {
-            $scope.$apply(function () {
-                $scope.phase = 2;
-                debugger;
-                $scope.currentDate = clickedDate;
-                getMonthEvents($scope.currentDate);
-            });
-        },
-
-        eventRender: function(event, element, view) {
-            if (view.name == 'agendaWeek' && event.allDay) {
-                $('.fc-col' + event.start.getDay()).not('.fc-widget-header').css('background-color', 'blue');
-            }
-        },
+        dayClick: dayClick,
 
         eventClick: function(calEvent, jsEvent, view) {
-/*
-            alert('Event: ' + calEvent.title);
-            alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-            alert('View: ' + view.name);*/
-
-            // change the border color just for fun
-            $(this).css('border-color', 'red');
-
+            dayClick(calEvent.start);
         },
 
         height: calculateHeight(),
@@ -131,7 +141,6 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
             $scope.currentDate = $('.calendar').fullCalendar('getDate');
         }
     });
-
 
     $scope.rectime = rectime;
 
@@ -168,6 +177,14 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         $('.calendar').fullCalendar('removeEvents');
     });
 
+
+    $scope.$watch("monthSchedule", function(data) {
+        _.each($(".calendar td"), function(value, index){
+            refresh( new Date( $(value).data("date")), $(value));
+        });
+    });
+
+
     $scope.$watch("currentDate", function(newDate, oldDate) {
 
         if($scope.currentDate) {
@@ -194,7 +211,10 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
             $('.calendar').fullCalendar('removeEvents');
 
             if(!oldDate || (newDate.getMonth() !== oldDate.getMonth())) { //Изменился месяц
+
                 getMonthEvents(newDate);
+
+
             } else {
                 if(newDate.getDay() !== oldDate.getDay()) { //Изменился день /*      */
                     getDayEvents(newDate);
