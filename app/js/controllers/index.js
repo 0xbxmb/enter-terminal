@@ -25,9 +25,9 @@ enterTerminal.controller('IndexCtrl', function ($rootScope, $scope, $location,  
     $rootScope.ticketProduct = null;
 
     $scope.$on('$routeChangeStart', function(next, current) {
-     /*   if(!$rootScope.ticketProduct && ($location.path() !== "/main" && $location.path() !== "/settings")){
+        if(!$rootScope.ticketProduct && ($location.path() !== "/main" && $location.path() !== "/settings")){
             $location.path("/main");
-        }*/
+        }
         $rootScope.footer = null;
     });
 

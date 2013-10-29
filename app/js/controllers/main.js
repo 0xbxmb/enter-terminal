@@ -55,7 +55,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         },
 
         getMonthEvents = function(date) {
-            ticketOperations.getMonthSchedule([$scope.selectedService.Id, date.getFullYear(), date.getMonth() + 1])
+            ticketOperations.getMonthSchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1])
                 .then(function (data) {
                     $scope.monthSchedule = data;
                     $('.calendar').fullCalendar( 'addEventSource', createEventsViewModel(date.getFullYear(), date.getMonth(), data));
@@ -64,7 +64,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
                 });
         },
         getDayEvents = function(date) {
-            ticketOperations.getDaySchedule([$scope.selectedService.Id, date.getFullYear()  + "|" + (date.getMonth() + 1) + "|" +date.getDate()])
+            ticketOperations.getDaySchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1, date.getDate()])
                 .then(function (data) {
                     $scope.daySchedule = data;
                 }, function (data) {
@@ -102,6 +102,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         dayClick: function (clickedDate) {
             $scope.$apply(function () {
                 $scope.phase = 2;
+                debugger;
                 $scope.currentDate = clickedDate;
                 getMonthEvents($scope.currentDate);
             });
@@ -195,7 +196,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
             if(!oldDate || (newDate.getMonth() !== oldDate.getMonth())) { //Изменился месяц
                 getMonthEvents(newDate);
             } else {
-                if(newDate.getDay() !== oldDate.getDay()) { //Изменился день /*      [$rootScope.selectedService.Id, newDate.getFullYear(), newDate.getMonth() + 1, newDate.getDate()]*/
+                if(newDate.getDay() !== oldDate.getDay()) { //Изменился день /*      */
                     getDayEvents(newDate);
                 }
             }
@@ -216,7 +217,10 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     };
 
     $scope.select = function($event, item){
-        ticketOperations.selectProduct([$scope.selectedService.Id, null, null]).then(function (data) {
+
+        ticketOperations.selectProduct([$scope.selectedService.Id,
+                                        moment($scope.currentDate).hours(Math.floor(item.Minutes/60)).minutes(item.Minutes%60).format(),
+                                        null]).then(function (data) {
             $rootScope.ticketProduct = data;
             $location.path("/ticketProduct");
         }, function (data) {
@@ -230,7 +234,6 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     };
 
     $scope.toQueueMethod = function () {
-
         ticketOperations.selectProduct([$scope.selectedService.Id, null, null]).then(function (data) {
 
             $rootScope.ticketProduct = data;
