@@ -1,15 +1,72 @@
-<h1 class="m-t-none text-center font-normal">
-    <div ng-hide="selectedService">Электронная очередь</div>
-    <div ng-show="selectedService" style="font-size: 45px; line-height: 1.5em">{{selectedService.FullName || selectedService.Name}}</div>
-</h1>
+<div ng-show="phase == 0">
+    <h1 class="m-t-none text-center font-normal">
+        <div ng-hide="selectedService">Электронная очередь</div>
+        <div ng-show="selectedService" style="font-size: 45px; line-height: 1.5em">{{selectedService.FullName || selectedService.Name}}</div>
+    </h1>
 
-<div class="m-t-lg2 m-l-lg m-r-lg">
-    <menu items="menu"
-          selected-service="selectedService"
-          to-queue-method="toQueueMethod"
-          record-method="recordMethod"
-          button-states="footer.states"></menu>
+    <div class="m-t-lg2 m-l-lg m-r-lg" >
+        <menu items="menu"
+              selected-service="selectedService"
+              to-queue-method="toQueueMethod"
+              record-method="recordMethod"
+              button-states="footer.states"></menu>
+    </div>
+</div>
+
+<div  ng-show="phase == 1">
+    <div style="position: absolute; min-width: 900px;  width: 100%;">
+        <button class="os-btn blue a-btn a-l m-t-sm big pull-left m-l-lg"
+                ng-click="prevMonth()"
+                ng-disabled="!isEnabledBackMonthButton()">
+            <div class="text-center">{{prevMonthLabel}}</div>
+        </button>
+
+        <button class="os-btn blue a-btn a-r m-t-sm big pull-right m-r-lg"
+                ng-click="nextMonth()">
+            <div class="text-center">{{nextMonthLabel}}</div>
+        </button>
+
+        <div class="clearfix"></div>
+    </div>
+    <div class="calendar" style="min-width: 900px; max-width: 1100px; margin: 0 auto"></div>
 </div>
 
 
+<div ng-show="phase == 2">
+    <div class="text-center">
+        <h2 class="fc-header-title " style="font-size: 55px">{{dayOfWeek(currentDate)}}</h2>
+    </div>
 
+    <div style="position: absolute; min-width: 900px;  width: 100%; top: 0">
+
+        <button class="os-btn blue a-btn a-l l-btn m-t-sm big pull-left m-l-lg"
+                ng-disabled="!isEnabledBackDayButton()"
+                ng-click="prevDay()">
+            <div class="text-center" style="font-size: 40px">{{prevDayLabel}}</div>
+        </button>
+
+        <button class="os-btn blue a-btn a-r l-btn m-t-sm big pull-right m-r-lg"
+                ng-click="nextDay()">
+            <div class="text-center" style="font-size: 40px">{{nextDayLabel}}</div>
+        </button>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="buttons-list m-t-lg2">
+        <div class="m-t-lg2" style="min-width: 900px; max-width: 1100px; margin: 0 auto">
+            <div class="row m-t-lg2">
+                <div class="buttons-list-item m-b-xs col-xs-2 " style="width: 12.5%" ng-repeat="item in daySchedule">
+                    <div class="as-table">
+                        <a class="centrify text-center" href="" ng-click="select($event, item)" ng-class="{'disabled': !item.IsEnabled }">
+                            <div style="position: relative">
+                                <div class="time text-center">{{rectime(item.Minutes)}}</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

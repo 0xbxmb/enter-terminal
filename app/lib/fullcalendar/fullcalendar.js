@@ -3983,12 +3983,15 @@ function AgendaEventRenderer() {
 		}else{
 			html += "div";
 		}
+
+
+
 		html +=
 			" class='" + classes.join(' ') + "'" +
 			" style=" +
 				"'" +
 				"position:absolute;" +
-				"top:" + seg.top + "px;" +
+				"top:" + seg.top  + "px;" +
 				"left:" + seg.left + "px;" +
 				skinCss +
 				"'" +

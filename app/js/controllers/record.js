@@ -22,7 +22,7 @@ enterTerminal.controller('RecordCtrl', function ($rootScope, $scope, $log, $loca
             _.each(data, function(value ,key){
                 _.each(value.Schedule.ScheduleIntervals, function(schedule ,index) {
                     events.push({
-                        title: rectime(schedule.StartMinutes) + " - " + rectime(schedule.EndMinutes),
+                        title: rectime(schedule.StartMinutes) + "–" + rectime(schedule.EndMinutes),
                         start: new Date(year, month, value.Day),
                         color: 'transparent',     // an option!
                         textColor: '#474747' // an option!
@@ -90,6 +90,22 @@ enterTerminal.controller('RecordCtrl', function ($rootScope, $scope, $log, $loca
                 $scope.currentDate = clickedDate;
             });
         },
+        eventRender: function(event, element, view) {
+
+            if (view.name == 'agendaWeek' && event.allDay) {
+                $('.fc-col' + event.start.getDay()).not('.fc-widget-header').css('background-color', 'blue');
+            }
+        },
+        eventClick: function(calEvent, jsEvent, view) {
+
+            alert('Event: ' + calEvent.title);
+            alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+            alert('View: ' + view.name);
+
+            // change the border color just for fun
+            $(this).css('border-color', 'red');
+
+        },
         height: calculateHeight(),
         viewRender: function(view, element){
             $scope.currentDate = $('.calendar').fullCalendar('getDate');
@@ -130,6 +146,26 @@ enterTerminal.controller('RecordCtrl', function ($rootScope, $scope, $log, $loca
 
         if($scope.currentDate) {
 
+
+            $(".fc-day, .fc-day>div,.fc-event, .fc-event-title, .fc-event-inner")
+                .hover(function () {
+                    if(!$(this).closest(".fc-day").hasClass("disabled")){
+                        $(this).closest(".fc-day").addClass("hovered");
+                    }
+                }, function(){
+                    $(this).closest(".fc-day").removeClass("hovered").removeClass("active");
+                })
+                .mouseup(function (event) {
+                    $(this).closest(".fc-day").removeClass("active");
+                })
+                .mousedown(function (event) {
+                    var left = 1;
+                    if(event.which === left && !$(this).closest(".fc-day").hasClass("disabled")) {
+                        $(this).closest(".fc-day").addClass("active");
+                    }
+                });
+
+
             $('.calendar').fullCalendar('gotoDate', $scope.currentDate);
             $('.calendar').fullCalendar('removeEvents');
 
@@ -148,26 +184,29 @@ enterTerminal.controller('RecordCtrl', function ($rootScope, $scope, $log, $loca
                         });
                 }
             }
-
             $scope.prevMonthLabel =  capitalizeString(moment($scope.currentDate).subtract('months', 1).format("MMMM"));
             $scope.nextMonthLabel =  capitalizeString(moment($scope.currentDate).add('months', 1).format("MMMM"));
             $scope.nextDayLabel = new Date(moment($scope.currentDate).add('days', 1)).getDate();
             $scope.prevDayLabel = new Date(moment($scope.currentDate).subtract('days', 1)).getDate();
-
         }
     });
 
+
+    $scope.isEnabledBackMonthButton = function () {
+        return $scope.currentDate > new Date();
+    };
+
+    $scope.isEnabledBackDayButton = function () {
+        return $scope.currentDate > new Date();
+    };
+
+
     $scope.select = function($event, item){
-
         ticketOperations.selectProduct([$rootScope.selectedService.Id, null, null]).then(function (data) {
-
             $rootScope.ticketProduct = data;
             $location.path("/ticketProduct");
-
         }, function (data) {
-
             notifier.errors.currentMessage = data.desc;
-
         });
     };
 

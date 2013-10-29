@@ -2,7 +2,7 @@
  * Created by i.sungurov on 08.10.13.
  */
 
-enterTerminal.directive("menu", function (notifier, $location) {
+enterTerminal.directive("menu", function (notifier, $location, settings) {
 
     "use strict";
 
@@ -54,7 +54,17 @@ enterTerminal.directive("menu", function (notifier, $location) {
             $scope.select = function ($event, item) {
 
                 if (item.ProductId !== undefined) {
+
                     $scope.selectedService = item;
+                    $scope.$parent.selectedService = item;
+
+                    if (settings.settings.liveQueue.value && !settings.settings.bookingByRecord.value) {
+                        $scope.toQueue();
+                    }
+                    if (!settings.settings.liveQueue.value && settings.settings.bookingByRecord.value) {
+                        $scope.record();
+                    }
+
                 } else {
                     $scope.displayData = getDataForDisplay($scope.data, item.Id);
                 }
@@ -91,11 +101,11 @@ enterTerminal.directive("menu", function (notifier, $location) {
 
             $scope.$parent.back = $scope.back;
 
-            $scope.record = function () {
-                $scope.recordMethod();
+            $scope.record = function (service) {
+                $scope.recordMethod(service);
             };
-            $scope.toQueue = function () {
-                $scope.toQueueMethod();
+            $scope.toQueue = function (service) {
+                $scope.toQueueMethod(service);
             };
         };
 

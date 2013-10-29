@@ -2,7 +2,8 @@
 <div ng-hide="timeSelecting">
     <div style="position: absolute; min-width: 900px;  width: 100%;">
         <button class="os-btn blue a-btn a-l m-t-sm big pull-left m-l-lg"
-                ng-click="prevMonth()">
+                ng-click="prevMonth()"
+                ng-disabled="!isEnabledBackMonthButton()">
             <div class="text-center">{{prevMonthLabel}}</div>
         </button>
 
@@ -25,6 +26,7 @@
     <div style="position: absolute; min-width: 900px;  width: 100%; top: 0">
 
         <button class="os-btn blue a-btn a-l l-btn m-t-sm big pull-left m-l-lg"
+                ng-disabled="!isEnabledBackDayButton()"
                 ng-click="prevDay()">
             <div class="text-center" style="font-size: 40px">{{prevDayLabel}}</div>
         </button>
@@ -42,7 +44,7 @@
             <div class="row m-t-lg2">
                 <div class="buttons-list-item m-b-xs col-xs-2 " style="width: 12.5%" ng-repeat="item in daySchedule">
                     <div class="as-table">
-                        <a class="centrify text-center" href="" ng-click="select($event, item)">
+                        <a class="centrify text-center" href="" ng-click="select($event, item)" ng-class="{'disabled': !item.IsEnabled }">
                             <div style="position: relative">
                                 <div class="time text-center">{{rectime(item.Minutes)}}</div>
                             </div>

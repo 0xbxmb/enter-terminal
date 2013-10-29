@@ -21,6 +21,21 @@ enterTerminal.service('settings', function (localStorageService) {
             clientId: {
                 value: "",
                 defaultValue: "terminal"
+            },
+
+            bookingByRecord: {
+                value: null,
+                defaultValue: true
+            },
+
+            liveQueue: {
+                value: null,
+                defaultValue: false
+            },
+
+            allowMultitickets: {
+                value: null,
+                defaultValue: false
             }
         },
 
@@ -31,9 +46,18 @@ enterTerminal.service('settings', function (localStorageService) {
         },
 
         loadFromStorage = function () {
+            var value;
             _.each(settings, function (obj, key) {
-                settings[key].value = localStorageService.get(prefix + key);
-                if (!settings[key].value) {
+
+                value = localStorageService.get(prefix + key);
+
+                try {
+                    settings[key].value = eval(value);
+                } catch (e) {
+                    settings[key].value = value;
+                }
+
+                if (settings[key].value === null) {
                     settings[key].value = settings[key].defaultValue;
                 }
             });
