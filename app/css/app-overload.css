@@ -240,7 +240,6 @@ footer.main-footer{
     left: 0;
     bottom: 0;
     right: 0;
-    background: #263545;
     width: 100%;
     padding-bottom: 20px;
 }
@@ -668,4 +667,8 @@ td.fc-widget-content > div{
 
 .fc-grid .fc-day.disabled .fc-day-number {
     color: #515558;
+}
+
+#day-schedule{
+    height: 100%;
 }

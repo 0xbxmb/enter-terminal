@@ -22,7 +22,7 @@ enterTerminal.directive('scrollBar', function ($window) {
             var
                 api = element.data('jsp'),
                 applyActualHeight = function () {
-                    var scrollPaneHeight = $(".main-column").outerHeight(true) - ($(".general-view-caption").outerHeight(true) +$(".push-bottom").outerHeight(true)),
+                    var scrollPaneHeight = $(".scroll-container").outerHeight(true) - ($(".general-view-caption").outerHeight(true) +$(".footer").outerHeight(true) + 60),
                         margin = 5;
                     element.css("height", scrollPaneHeight + margin);
                 };

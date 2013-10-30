@@ -9,7 +9,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     moment.lang("ru");
 
     $scope.phase = 0;
-    $scope.selectedService = null;
+//    $scope.selectedService = null;
     $scope.currentDate = new Date();
 
     var
@@ -235,13 +235,16 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
 
     $scope.select = function($event, item){
 
+        if($($event.target).closest("a").hasClass("disabled")){
+            return;
+        }
         $rootScope.to.selectProduct([$scope.selectedService.Id, null, null], {
             currentDate: $scope.currentDate,
             item: item
         }).then(function (data) {
 
-            $rootScope.ticketProduct = data;
-            $location.path("/ticketProduct");
+                $rootScope.ticketProduct = data;
+                $location.path("/ticketProduct");
 
             }, function (data) {
             notifier.errors.currentMessage = data.desc;
@@ -249,11 +252,15 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     };
 
     $scope.recordMethod = function () {
+
+        $rootScope.footer.states.back.isActive = true;
+
         getMonthEvents($scope.currentDate);
         $scope.phase = 1;
     };
 
     $scope.toQueueMethod = function () {
+
         $rootScope.to.selectProduct([$scope.selectedService.Id, null, null]).then(function (data) {
             $rootScope.ticketProduct = data;
             $location.path("/ticketProduct");
@@ -266,24 +273,22 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         templateUrl:"templates/footers/main.html",
         actions: {
             back: function () {
-
                 if($scope.phase == 2){
                     $scope.phase = 1;
                     getMonthEvents($scope.currentDate);
                     return;
                 }
-
                 if($scope.phase == 1){
 
                     $scope.phase = 0;
 
                     if((settings.settings.liveQueue.value && !settings.settings.bookingByRecord.value)  ||
                         (!settings.settings.liveQueue.value && settings.settings.bookingByRecord.value) ) {
+                        $scope.selectedService = null;
                         $scope.back();
                     }
                     return;
                 }
-
                 $scope.back();
             },
 

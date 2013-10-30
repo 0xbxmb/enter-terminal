@@ -48,6 +48,7 @@ enterTerminal.directive("menu", function (notifier, $location, settings) {
         },
 
         link = function ($scope, iElement, iAttrs) {
+
             $scope.selectedService = null;
             $scope.currentParent = null;
 
@@ -91,11 +92,16 @@ enterTerminal.directive("menu", function (notifier, $location, settings) {
                 }
             });
 
+            var temp = $scope;
+
+            $scope.temp = temp;
+
             $scope.back = function () {
-                $scope.selectedService = null;
-                $scope.currentParent = $scope.currentParent.ParentItem;
-                $scope.buttonStates.back.isActive = ($scope.currentParent !== null);
-                $scope.displayData = getDataForDisplay($scope.data, (($scope.currentParent) ? $scope.currentParent.Id : null));
+
+                temp.selectedService = null;
+                temp.currentParent = temp.currentParent.ParentItem;
+                temp.buttonStates.back.isActive = (temp.currentParent !== null);
+                temp.displayData = getDataForDisplay(temp.data, ((temp.currentParent) ? temp.currentParent.Id : null));
 //                $(".scroll-pane").data('jsp').reinitialise();
             };
 

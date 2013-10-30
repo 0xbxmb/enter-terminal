@@ -16,7 +16,7 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
         return d.getDate() + " " + monthNames[d.getMonth()];
     };
 
-    $scope.getTime= function (date) {
+    $scope.getTime = function (date) {
         return date.substr(date.indexOf("T") + 1, 5);
     };
 
@@ -69,8 +69,12 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
 
     $scope.$watch("ticket", function (data) {
         if (data) {
-            var showTicketDelay = 5000;
+            var showTicketDelay = 15000;
             $timeout($scope.finish, showTicketDelay);
         }
     });
+
+    //TODO:
+    $rootScope.footer.actions.printTicket();
+    //TODO:
 });

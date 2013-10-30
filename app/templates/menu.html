@@ -1,5 +1,8 @@
 <div>
-    <div ng-show="!selectedService">
+
+    <!---->
+
+    <div ng-show="!temp.selectedService">
         <!--<scroll-bar></scroll-bar>-->
         <div class="buttons-list">
             <div class="row">
@@ -19,7 +22,10 @@
         </div>
     </div>
 
-    <div ng-show="selectedService" class="m-t-lg2">
+
+    <!---->
+
+    <div class="m-t-lg2 hidden" ng-show="temp.selectedService">
 
         <div class="row m-t-lg2">
             <div class="buttons-list">

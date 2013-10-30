@@ -21,7 +21,7 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, deffere
                 .replace("{productmenulinkid}", params[0])
                 .replace("{datetime}", formattedDateTime);
 
-            return defferedHttpJsonp.get(url);
+            return defferedHttpJsonp.get(url);;
         },
 
         unselectProduct = function (id) {
@@ -56,7 +56,7 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, deffere
             var promise = defferedHttpJsonp.get(HTTP_CONFIRM_TICKET_URL)
             promise.then( function (){
                 getPdfFile(params);
-            })
+            });
             return promise;
         },
 
