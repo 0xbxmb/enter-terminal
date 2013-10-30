@@ -7,6 +7,7 @@ body {
     min-width: 320px;
     color: #ffffff;
     overflow: hidden;
+    min-width: 960px;
 }
 
 ng-view {
@@ -60,9 +61,15 @@ ng-view {
 
 @media (min-width: 992px) {
     /*iPad Medium devices - Desktops (>992px) */
+    .buttons-list a .time {
+        font-size: 25px;
+    }
 }
 
 @media (min-width: 1200px) {
+    .buttons-list a .time {
+        font-size: 35px;
+    }
 }
 
 @media (max-width: 320px) {
@@ -200,6 +207,9 @@ footer.main-footer{
     background: #243341;
     border: none;
     padding: 5px 80px;
+    bottom: 0 !important;
+    position: absolute;
+    width: 100%;
 }
 
 #main-section {
@@ -342,17 +352,27 @@ footer.main-footer{
     background: -ms-linear-gradient(top,  rgba(194,197,199,1) 0%,rgba(250,250,250,1) 100%); /* IE10+ */
     background: linear-gradient(to bottom,  rgba(194,197,199,1) 0%,rgba(250,250,250,1) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c2c5c7', endColorstr='#fafafa',GradientType=0 ); /* IE6-8 */
+
+
+
+
+
 }
 
 .buttons-list a .text {
     padding-right: 60px;
     padding-left: 10px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 70px;
+    line-height: 1.3;
 }
 
 .buttons-list a .time{
     padding: 10px 20px;
     color: #474747;
-    font-size: 35px
+
 }
 
 .buttons-list a:hover{
@@ -603,7 +623,7 @@ td.fc-widget-content > div{
 
 .fc-event-title{
     padding: 2px;
-    font-size: 19px;
+    font-size: 18px;
     line-height: 1.1em;
 }
 

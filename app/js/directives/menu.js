@@ -85,7 +85,6 @@ enterTerminal.directive("menu", function (notifier, $location, settings) {
             };
 
             $scope.$watch("items", function (data) {
-                debugger;
                 if (data && data.Items) {
                     $scope.data = createViewData(angular.copy(data));
                     $scope.displayData = getDataForDisplay($scope.data, null);

@@ -30,20 +30,12 @@ enterTerminal.service('defferedHttpJsonp', function ($q, $log, $http,  HTTP_SERV
             return deferredData.promise;
         },
 
-        post = function(url) {
-            var deferredData = $q.defer();
-            $http.jsonp(HTTP_SERVER_URL + url + callbackString).success(function(data) {
-                $log.info(data);
-                deferredData.resolve(data);
-            }).error(function(err) {
-                    $log.info(data);
-                    deferredData.reject(err);
-                });
-            return deferredData.promise;
+        getFile = function(url) {
+            window.open(HTTP_SERVER_URL + url,'_blank');
         };
 
     return {
         get: get,
-        post: post
+        getFile: getFile
     };
 });

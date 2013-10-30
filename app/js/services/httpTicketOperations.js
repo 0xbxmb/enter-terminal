@@ -44,7 +44,7 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, deffere
 
         getDaySchedule = function(params){
 
-            var date = moment({year: params[1], month: params[2], day: params[3]}).format("DD.MM.YYYY");
+            var date = moment({year: params[1], month: params[2] - 1, day: params[3]}).format("DD.MM.YYYY");
             var url = HTTP_GET_PRODUCT_DAY_SCHEDULE_URL
                             .replace("{productid}", params[0])
                             .replace("{date}",      date );
@@ -69,7 +69,7 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, deffere
             var url = HTTP_GET_TICKET_PDF_FILE_URL
                         .replace("{ticketid}", id);
 
-            return defferedHttpJsonp.get(url);
+            return defferedHttpJsonp.getFile(url);
         };
 
     return {

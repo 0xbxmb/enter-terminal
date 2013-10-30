@@ -6,8 +6,6 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
 
     'use strict';
 
-    debugger;
-
     moment.lang("ru");
 
     $scope.phase = 0;
@@ -82,7 +80,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
             $scope.$apply(function () {
                 $scope.phase = 2;
                 $scope.currentDate = date;
-                getMonthEvents($scope.currentDate);
+                getDayEvents($scope.currentDate);
             });
         },
 
@@ -257,10 +255,8 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
 
     $scope.toQueueMethod = function () {
         $rootScope.to.selectProduct([$scope.selectedService.Id, null, null]).then(function (data) {
-
             $rootScope.ticketProduct = data;
             $location.path("/ticketProduct");
-
         }, function (data) {
             notifier.errors.currentMessage = data.desc;
         });
@@ -283,8 +279,6 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
 
                     if((settings.settings.liveQueue.value && !settings.settings.bookingByRecord.value)  ||
                         (!settings.settings.liveQueue.value && settings.settings.bookingByRecord.value) ) {
-       /**/
-                        debugger;
                         $scope.back();
                     }
                     return;
