@@ -56,12 +56,10 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         getMonthEvents = function(date) {
             ticketOperations.getMonthSchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1])
                 .then(function (data) {
-
                     $scope.monthSchedule = data;
-//                  $('.calendar').fullCalendar('render');
-                    $('.calendar').fullCalendar( 'addEventSource', createEventsViewModel(date.getFullYear(), date.getMonth() , data));
-
-
+                    $('.calendar').fullCalendar('render');
+                    $('.calendar').fullCalendar('removeEvents');
+                    $('.calendar').fullCalendar('addEventSource', createEventsViewModel(date.getFullYear(), date.getMonth() , data));
                 }, function (data) {
                     notifier.errors.currentMessage = data.desc;
                 });
@@ -173,8 +171,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     });
 
 
-    $scope.$watch("phase", function() {
-        $('.calendar').fullCalendar('removeEvents');
+    $scope.$watch("phase", function(data) {
     });
 
 
@@ -208,13 +205,9 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
                 });
 
             $('.calendar').fullCalendar('gotoDate', $scope.currentDate);
-            $('.calendar').fullCalendar('removeEvents');
 
             if(!oldDate || (newDate.getMonth() !== oldDate.getMonth())) { //Изменился месяц
-
                 getMonthEvents(newDate);
-
-
             } else {
                 if(newDate.getDay() !== oldDate.getDay()) { //Изменился день /*      */
                     getDayEvents(newDate);
@@ -238,6 +231,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
 
     $scope.select = function($event, item){
 
+        debugger;
         ticketOperations.selectProduct([$scope.selectedService.Id,
                                         moment($scope.currentDate).hours(Math.floor(item.Minutes/60)).minutes(item.Minutes%60).format(),
                                         null]).then(function (data) {
