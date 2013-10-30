@@ -195,7 +195,13 @@ enterTerminal.service('wamp', function ($q, $log, $rootScope, notifier, settings
         };
 
     _promises.push(_initialDeferred.promise);
-    _connect();
+
+    if( !settings.settings.httpVersion ){
+        _connect();
+    } else{
+        notifier.connection.isConnected = true;
+    }
+
 
     return {
         subscribe: subscribe,

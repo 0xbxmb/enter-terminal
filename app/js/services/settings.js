@@ -36,6 +36,11 @@ enterTerminal.service('settings', function (localStorageService) {
             allowMultitickets: {
                 value: null,
                 defaultValue: false
+            },
+
+            httpVersion:{
+                value: null,
+                defaultValue: true
             }
         },
 

@@ -22,7 +22,8 @@
         </button>
 
         <button class="os-btn blue a-btn a-r m-t-sm big pull-right m-r-lg"
-                ng-click="nextMonth()">
+                ng-click="nextMonth()"
+                ng-disabled="!isEnabledNextMonthButton()">
             <div class="text-center">{{nextMonthLabel}}</div>
         </button>
 

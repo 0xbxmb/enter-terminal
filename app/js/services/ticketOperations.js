@@ -8,7 +8,10 @@ enterTerminal.service('ticketOperations', function ($q, $log, $rootScope, wamp, 
     'use strict';
 
     var
-        selectProduct = function (params) {
+        selectProduct = function (params, dateTime) {
+
+            params[1] = moment(dateTime.currentDate).hours(Math.floor(dateTime.item.Minutes/60)).minutes(dateTime.item.Minutes%60).format();
+
             return wamp.call(SELECT_PRODUCT_URL, params);
         },
         unselectProduct = function (params) {

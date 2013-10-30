@@ -2,7 +2,7 @@
  * Created by i.sungurov on 03.10.13.
  */
 
-enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log,  $location, $timeout, ticketOperations, notifier) {
+enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log,  $location, $timeout, ticketOperations, notifier ) {
 
     'use strict';
 
@@ -27,7 +27,7 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
     };
 
     $scope.cancel = function (product) {
-        ticketOperations.unselectProduct(product.Id).then(function (data) {
+        $rootScope.to.unselectProduct(product.Id).then(function (data) {
             $rootScope.ticketProduct = data;
             if (!data) {
                 $location.path("/main");
@@ -44,7 +44,7 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
         actions: {
 
             cancelAll: function () {
-                ticketOperations.cancelTicket($rootScope.ticketProduct.Id).then( function (data) {
+                $rootScope.to.cancelTicket($rootScope.ticketProduct.Id).then( function (data) {
                     $rootScope.ticketProduct = null;
                     $location.path("/main");
                 }, function (data) {
@@ -57,7 +57,7 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
             },
 
             printTicket: function () {
-                ticketOperations.confirmTicket($rootScope.ticketProduct.Id).then(function (data) {
+                $rootScope.to.confirmTicket($rootScope.ticketProduct.Id).then(function (data) {
                     $scope.ticket = data;
                     $rootScope.footer = null;
                 }, function (data) {

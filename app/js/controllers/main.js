@@ -2,9 +2,11 @@
  * Created by i.sungurov on 02.10.13.
  */
 
-enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $location, ticketOperations, settings, notifier) {
+enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $location, ticketOperations, settings, notifier, httpTicketOperations) {
 
     'use strict';
+
+    debugger;
 
     moment.lang("ru");
 
@@ -54,7 +56,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         },
 
         getMonthEvents = function(date) {
-            ticketOperations.getMonthSchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1])
+            $rootScope.to.getMonthSchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1])
                 .then(function (data) {
                     $scope.monthSchedule = data;
                     $('.calendar').fullCalendar('render');
@@ -65,7 +67,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
                 });
         },
         getDayEvents = function(date) {
-            ticketOperations.getDaySchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1, date.getDate()])
+            $rootScope.to.getDaySchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1, date.getDate()])
                 .then(function (data) {
                     $scope.daySchedule = data;
                 }, function (data) {
@@ -209,7 +211,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
             if(!oldDate || (newDate.getMonth() !== oldDate.getMonth())) { //Изменился месяц
                 getMonthEvents(newDate);
             } else {
-                if(newDate.getDay() !== oldDate.getDay()) { //Изменился день /*      */
+                if(newDate.getDay() !== oldDate.getDay()) { //Изменился день
                     getDayEvents(newDate);
                 }
             }
@@ -225,19 +227,25 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         return $scope.currentDate > new Date();
     };
 
+    $scope.isEnabledNextMonthButton = function () {
+        return Math.abs( $scope.currentDate.getMonth() - (new Date()).getMonth()) < 3;
+    };
+
     $scope.isEnabledBackDayButton = function () {
         return $scope.currentDate > new Date();
     };
 
     $scope.select = function($event, item){
 
-        debugger;
-        ticketOperations.selectProduct([$scope.selectedService.Id,
-                                        moment($scope.currentDate).hours(Math.floor(item.Minutes/60)).minutes(item.Minutes%60).format(),
-                                        null]).then(function (data) {
+        $rootScope.to.selectProduct([$scope.selectedService.Id, null, null], {
+            currentDate: $scope.currentDate,
+            item: item
+        }).then(function (data) {
+
             $rootScope.ticketProduct = data;
             $location.path("/ticketProduct");
-        }, function (data) {
+
+            }, function (data) {
             notifier.errors.currentMessage = data.desc;
         });
     };
@@ -248,7 +256,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     };
 
     $scope.toQueueMethod = function () {
-        ticketOperations.selectProduct([$scope.selectedService.Id, null, null]).then(function (data) {
+        $rootScope.to.selectProduct([$scope.selectedService.Id, null, null]).then(function (data) {
 
             $rootScope.ticketProduct = data;
             $location.path("/ticketProduct");
@@ -262,18 +270,29 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         templateUrl:"templates/footers/main.html",
         actions: {
             back: function () {
+
                 if($scope.phase == 2){
                     $scope.phase = 1;
                     getMonthEvents($scope.currentDate);
                     return;
                 }
+
                 if($scope.phase == 1){
+
                     $scope.phase = 0;
 
-                    return
+                    if((settings.settings.liveQueue.value && !settings.settings.bookingByRecord.value)  ||
+                        (!settings.settings.liveQueue.value && settings.settings.bookingByRecord.value) ) {
+       /**/
+                        debugger;
+                        $scope.back();
+                    }
+                    return;
                 }
-                 $scope.back();
+
+                $scope.back();
             },
+
             showTicketProduct: function () {
                 $location.path("/ticketProduct");
             }
