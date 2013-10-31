@@ -2,7 +2,8 @@
  * Created by i.sungurov on 28.10.13.
  */
 
-enterTerminal.service('httpTicketOperations', function ($q, $log, $http, defferedHttpJsonp,
+enterTerminal.service('httpTicketOperations', function ($q, $log, $http, $timeout,
+                                                                         defferedHttpJsonp,
                                                                          HTTP_GET_PRODUCT_MONTH_SCHEDULE_URL,
                                                                          HTTP_GET_PRODUCT_DAY_SCHEDULE_URL,
                                                                          HTTP_GET_TICKET_PDF_FILE_URL,
@@ -44,12 +45,29 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, deffere
 
         getDaySchedule = function(params){
 
-            var date = moment({year: params[1], month: params[2] - 1, day: params[3]}).format("DD.MM.YYYY");
-            var url = HTTP_GET_PRODUCT_DAY_SCHEDULE_URL
-                            .replace("{productid}", params[0])
-                            .replace("{date}",      date );
+            var saturday = 6,
+                sunday = 0,
+                date = moment({year: params[1], month: params[2] - 1, day: params[3]}),
+                day = parseInt(date.format("d"));
 
-            return defferedHttpJsonp.get(url);
+            if( ( day === saturday) || ( day === sunday)){
+
+                var q = $q.defer();
+
+                $timeout(function() {
+                    q.resolve([]);
+                });
+
+                return q.promise;
+
+            } else {
+                var date = date.format("DD.MM.YYYY");
+                var url = HTTP_GET_PRODUCT_DAY_SCHEDULE_URL
+                    .replace("{productid}", params[0])
+                    .replace("{date}",      date );
+
+                return defferedHttpJsonp.get(url);
+            }
         },
 
         confirmTicket = function (params) {
