@@ -70,16 +70,25 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, $timeou
             }
         },
 
-        confirmTicket = function (params) {
-            var promise = defferedHttpJsonp.get(HTTP_CONFIRM_TICKET_URL)
+        confirmTicket = function (id) {
+
+            var url = HTTP_CONFIRM_TICKET_URL
+                        .replace("{ticketid}", id)
+
+            var promise = defferedHttpJsonp.get(url)
             promise.then( function (){
-                getPdfFile(params);
+                getPdfFile(id);
             });
             return promise;
         },
 
         cancelTicket = function (id) {
-            return defferedHttpJsonp.get(HTTP_CANCEL_TICKET_URL);
+
+
+            var url = HTTP_CONFIRM_TICKET_URL
+                .replace("{ticketid}", id)
+
+            return defferedHttpJsonp.get(url);
         },
 
         getPdfFile = function (id){

@@ -75,6 +75,6 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
     });
 
     //TODO:
-    $rootScope.footer.actions.printTicket();
+//    $rootScope.footer.actions.printTicket();
     //TODO:
 });
