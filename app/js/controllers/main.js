@@ -67,6 +67,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         getDayEvents = function(date) {
             $rootScope.to.getDaySchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1, date.getDate()])
                 .then(function (data) {
+                    debugger;
                     $scope.daySchedule = data;
                 }, function (data) {
                     notifier.errors.currentMessage = data.desc;
@@ -208,11 +209,12 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
 
             if(!oldDate || (newDate.getMonth() !== oldDate.getMonth())) { //Изменился месяц
                 getMonthEvents(newDate);
-            } else {
-                if(newDate.getDay() !== oldDate.getDay()) { //Изменился день
-                    getDayEvents(newDate);
-                }
             }
+
+            if(newDate.getDay() !== oldDate.getDay()) { //Изменился день
+                getDayEvents(newDate);
+            }
+
 
             $scope.prevMonthLabel =  capitalizeString(moment($scope.currentDate).subtract('months', 1).format("MMMM"));
             $scope.nextMonthLabel =  capitalizeString(moment($scope.currentDate).add('months', 1).format("MMMM"));
