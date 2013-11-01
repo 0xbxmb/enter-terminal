@@ -72,10 +72,12 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, $timeou
 
         confirmTicket = function (id) {
 
+            //TODO:
             var url = HTTP_CONFIRM_TICKET_URL
                         .replace("{ticketid}", id)
 
             var promise = defferedHttpJsonp.get(url)
+
             promise.then( function (){
                 getPdfFile(id);
             });
@@ -83,9 +85,7 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, $timeou
         },
 
         cancelTicket = function (id) {
-
-
-            var url = HTTP_CONFIRM_TICKET_URL
+            var url = HTTP_CANCEL_TICKET_URL
                 .replace("{ticketid}", id)
 
             return defferedHttpJsonp.get(url);
