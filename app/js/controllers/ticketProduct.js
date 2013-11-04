@@ -9,6 +9,7 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
     $scope.ticket = null;
 
     $scope.getDate = function (date) {
+
         var monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль',
                             'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
             d = new Date(date);

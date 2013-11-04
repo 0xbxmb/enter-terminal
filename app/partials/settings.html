@@ -2,7 +2,6 @@
     <form name="settingsForm" novalidate="true" id="settings-login-form" class="form-horizontal">
         <div class="form-group">
             <span class="col-sm-12 col-md-12 control-label">Имя пользователя</span>
-
             <div class="col-sm-12 col-md-12">
                 <input type="text" class="bg-focus form-control input-sm m-t-sm"
                        ng-model="login" />
@@ -20,12 +19,10 @@
         </div>
 
         <div class="text-center text-danger animated bounceIn" ng-hide="!loginErrorMessage">{{loginErrorMessage}}</div>
-
     </form>
 
     <div class="push-bottom">
         <div class="to-middle">
-
             <button class="os-btn green " ng-click="logon()"  ng-disabled="!login || !password">
                 Вход
             </button>
@@ -46,7 +43,6 @@
 
         <div class="form-group">
             <span class="col-sm-12 col-md-12 control-label">Адрес сервера</span>
-
             <div class="col-sm-12 col-md-12">
                 <input type="text" required class="form-control input-sm m-t-sm"
                        on-enter="apply()"
@@ -60,11 +56,9 @@
             <button class="os-btn m-t-sm l-btn a-btn a-l" ng-click="cancel()">
                 Отмена
             </button>
-
             <button  class="os-btn green m-t-sm l-btn m-l-sm2" ng-click="apply()"  ng-disabled="!settingsObject.clientId.value || !settingsObject.wampServerUrl.value">
                 Сохранить
             </button>
-
         </div>
     </div>
 </div>

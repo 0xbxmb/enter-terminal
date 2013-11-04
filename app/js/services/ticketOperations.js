@@ -19,7 +19,6 @@ enterTerminal.service('ticketOperations', function ($q, $log, $rootScope, wamp, 
         },
 
         getMonthSchedule = function(params){
-            debugger;
             return wamp.call(GET_MONTH_SCHEDULE, params);
         },
 
