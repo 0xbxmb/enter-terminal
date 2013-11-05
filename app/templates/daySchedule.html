@@ -11,12 +11,8 @@
             <div class="text-center" style="font-size: 40px">{{prevDayLabel}}</div>
         </button>
 
-
         <!--TODO: ng-disabled="!isEnabledBackDayButton()"-->
         <button class="os-btn blue a-btn a-r l-btn m-t-sm big pull-right m-r-lg"
-
-
-
                 ng-click="nextDay()">
             <div class="text-center" style="font-size: 40px">{{nextDayLabel}}</div>
         </button>
@@ -32,12 +28,12 @@
                         <div class="as-table">
                             <a class="centrify text-center" href="" ng-click="select($event, item)" ng-class="{'disabled': !item.IsEnabled }">
                                 <div style="position: relative">
-                                    <div class="time text-center">{{rectime(item.Minutes)}}</div>
+                                    <div class="time text-center">{{minutesToHours(item.Minutes)}}</div>
                                 </div>
                             </a>
                         </div>
                     </div>
-                    <div ng-show="!daySchedule.length">
+                    <div ng-show="!schedule.length">
                         <h1 class="text-white text-center" style="color: #fff96b; ">Выходной день</h1>
                     </div>
                 </div>

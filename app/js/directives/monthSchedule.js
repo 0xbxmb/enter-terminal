@@ -24,6 +24,19 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
             return $(".wrapper").height() - 100;
         },
 
+        minutesToHours = function (plainMinutes) {
+            var
+                secs = plainMinutes * 60,
+                hr = Math.floor(secs / 3600),
+                min = Math.floor((secs - (hr * 3600))/60);
+            if (hr < 10) {
+                hr = "0" + hr;
+            }
+            if (min < 10) {
+                min = "0" + min;
+            }
+            return hr + ':' + min;
+        },
 
         applyStyles = function(){
 
@@ -50,9 +63,8 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
             var events = [];
             _.each(data, function(value ,key){
                 _.each(value.Schedule.ScheduleIntervals, function(schedule ,index) {
-//                    rectime(schedule.StartMinutes) + "–" + rectime(schedule.EndMinutes)
                     events.push({
-                        title: "тестик",
+                        title: minutesToHours(schedule.StartMinutes) + "–" + minutesToHours(schedule.EndMinutes),
                         start: new Date(year, month, value.Day),
                         color: 'transparent',     // an option!
                         textColor: '#474747'      // an option!
@@ -62,30 +74,29 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
             return events;
         },
 
-        refresh = function (date, cell)  {
-            if(date.getMonth() !== $scope.currentDate.getMonth()){
-                $(cell).addClass("disabled");
-                return;
-            }
-            var
-                day = date.getDate(),
-                t = _.any($scope.monthSchedule, function(value, index){
-                    return (value.Day === day);
-                });
-            if (!t) {
-                $(cell).addClass("disabled");
-            }
-        },
-
         link = function ($scope, iElement, iAttrs) {
 
-            var dayClick = function() {
-                if($(this).hasClass("disabled")){
-                    return;
-                }
-                $scope.clickEvent($scope.currentDate);
-            };
-
+            var
+                dayClick = function() {
+                    if($(this).hasClass("disabled")){
+                        return;
+                    }
+                    $scope.clickEvent($scope.currentDate);
+                },
+                refresh = function (date, cell)  {
+                    if(date.getMonth() !== $scope.currentDate.getMonth()){
+                        $(cell).addClass("disabled");
+                        return;
+                    }
+                    var
+                        day = date.getDate(),
+                        t = _.any($scope.monthSchedule, function(value, index){
+                            return (value.Day === day);
+                        });
+                    if (!t) {
+                        $(cell).addClass("disabled");
+                    }
+                };
 
             $scope.prevMonth = function (){
                 $scope.currentDate = new Date(moment($scope.currentDate).subtract('months', 1));

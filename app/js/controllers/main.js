@@ -7,24 +7,11 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     'use strict';
 
     var
-        rectime = function (plainMinutes) {
-            var
-                secs = plainMinutes * 60,
-                hr = Math.floor(secs / 3600),
-                min = Math.floor((secs - (hr * 3600))/60);
-            if (hr < 10) {
-                hr = "0" + hr;
-            }
-            if (min < 10) {
-                min = "0" + min;
-            }
-            return hr + ':' + min;
-        },
+
 
         getMonthEvents = function(date) {
             $rootScope.to.getMonthSchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1])
                 .then(function (data) {
-                    debugger;
                     $scope.monthSchedule = data;
                 }, function (data) {
                     notifier.errors.currentMessage = data.desc;
@@ -48,7 +35,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
             });
         },
 
-        timeClick = function(){
+        timeClick = function(item){
             $rootScope.to.selectProduct([$scope.selectedService.Id, null, null], {
                 currentDate: $scope.currentDate,
                 item: item
@@ -62,14 +49,10 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
 
     $scope.phase = 0;
     $scope.currentDate = new Date();
-    $scope.rectime = rectime;
     $scope.dayClick = dayClick;
     $scope.timeClick = timeClick;
 
-
-
     $scope.recordMethod = function () {
-        debugger;
         $scope.phase = 1;
         $rootScope.footer.states.back.isActive = true;
         getMonthEvents($scope.currentDate);
