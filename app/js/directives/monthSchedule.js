@@ -66,8 +66,8 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
                     events.push({
                         title: minutesToHours(schedule.StartMinutes) + "–" + minutesToHours(schedule.EndMinutes),
                         start: new Date(year, month, value.Day),
-                        color: 'transparent',     // an option!
-                        textColor: '#474747'      // an option!
+                        color: 'transparent',
+                        textColor: '#474747'
                     })
                 });
             });
@@ -77,12 +77,14 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
         link = function ($scope, iElement, iAttrs) {
 
             var
-                dayClick = function() {
+                calendarName = ".calendar",
+                dayClick = function(date) {
                     if($(this).hasClass("disabled")){
                         return;
                     }
-                    $scope.clickEvent($scope.currentDate);
+                    $scope.clickEvent(date);
                 },
+
                 refresh = function (date, cell)  {
                     if(date.getMonth() !== $scope.currentDate.getMonth()){
                         $(cell).addClass("disabled");
@@ -90,10 +92,10 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
                     }
                     var
                         day = date.getDate(),
-                        t = _.any($scope.monthSchedule, function(value, index){
+                        hasAny = _.any($scope.schedule, function(value, index){
                             return (value.Day === day);
                         });
-                    if (!t) {
+                    if (!hasAny) {
                         $(cell).addClass("disabled");
                     }
                 };
@@ -116,11 +118,11 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
 
             $(document).ready(function () {
                 $(window).resize(function () {
-                    $('.calendar').fullCalendar('option', 'height', calculateHeight());
+                    $(calendarName).fullCalendar('option', 'height', calculateHeight());
                 });
             });
 
-            $('.calendar').fullCalendar({
+            $(calendarName).fullCalendar({
                 weekMode: "liquid",
                 firstDay: 1,
                 dayNamesShort: [ 'вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'],
@@ -156,15 +158,14 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
                 height: calculateHeight(),
 
                 viewRender: function(view, element){
-                    //TODO: scope.apply
-                    $scope.currentDate = $('.calendar').fullCalendar('getDate');
+                    $scope.currentDate = $(calendarName).fullCalendar('getDate');
                 }
             });
 
             $scope.$watch("currentDate", function(newDate, oldDate) {
                 if($scope.currentDate) {
                     applyStyles();
-                    $('.calendar').fullCalendar('gotoDate', $scope.currentDate);
+                    $(calendarName).fullCalendar('gotoDate', $scope.currentDate);
                     $scope.prevMonthLabel =  capitalizeString(moment($scope.currentDate).subtract('months', 1).format("MMMM"));
                     $scope.nextMonthLabel =  capitalizeString(moment($scope.currentDate).add('months', 1).format("MMMM"));
                 }
@@ -172,9 +173,9 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
 
             $scope.$watch("schedule", function(data) {
                 if(data){
-                    $('.calendar').fullCalendar('render');
-                    $('.calendar').fullCalendar('removeEvents');
-                    $('.calendar').fullCalendar('addEventSource', createEventsViewModel($scope.currentDate.getFullYear(), $scope.currentDate.getMonth() , data));
+                    $(calendarName).fullCalendar('render');
+                    $(calendarName).fullCalendar('removeEvents');
+                    $(calendarName).fullCalendar('addEventSource', createEventsViewModel($scope.currentDate.getFullYear(), $scope.currentDate.getMonth() , data));
                     _.each($(".calendar td"), function(value, index) {
                         refresh( new Date( $(value).data("date")), $(value));
                     });

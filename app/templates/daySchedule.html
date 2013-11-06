@@ -11,9 +11,10 @@
             <div class="text-center" style="font-size: 40px">{{prevDayLabel}}</div>
         </button>
 
-        <!--TODO: ng-disabled="!isEnabledBackDayButton()"-->
+
         <button class="os-btn blue a-btn a-r l-btn m-t-sm big pull-right m-r-lg"
-                ng-click="nextDay()">
+                ng-click="nextDay()"
+                ng-disabled="!isEnabledNextDayButton()">
             <div class="text-center" style="font-size: 40px">{{nextDayLabel}}</div>
         </button>
 

@@ -2,19 +2,18 @@
  * Created by i.sungurov on 02.10.13.
  */
 
-enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $location, ticketOperations, settings, notifier, httpTicketOperations) {
+enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $location,
+                                               ticketOperations, settings, notifier) {
 
     'use strict';
 
     var
-
-
         getMonthEvents = function(date) {
             $rootScope.to.getMonthSchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1])
                 .then(function (data) {
                     $scope.monthSchedule = data;
                 }, function (data) {
-                    notifier.errors.currentMessage = data.desc;
+                    notifier.errors.currentMessage = data || data.desc;
                 });
         },
 
@@ -23,7 +22,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
                 .then(function (data) {
                     $scope.daySchedule = data;
                 }, function (data) {
-                    notifier.errors.currentMessage = data.desc;
+                    notifier.errors.currentMessage = data || data.desc;
                 });
         },
 
@@ -86,9 +85,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
                     return;
                 }
                 if($scope.phase == 1){
-
                     $scope.phase = 0;
-
                     if((settings.settings.liveQueue.value && !settings.settings.bookingByRecord.value)  ||
                         (!settings.settings.liveQueue.value && settings.settings.bookingByRecord.value) ) {
                         $scope.selectedService = null;

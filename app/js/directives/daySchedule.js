@@ -55,6 +55,13 @@ enterTerminal.directive("daySchedule", function (notifier, $location, settings) 
                 return $scope.currentDate > new Date();
             };
 
+            $scope.isEnabledNextDayButton = function () {
+                var date = new Date();
+                return $scope.currentDate < new Date( moment({year: date.getFullYear(), month: date.getMonth(), day: 1})
+                                                                                .add("months", 3)
+                                                                                .subtract("days",1).format());
+            };
+
             $scope.select = function($event, item){
                 if($($event.target).closest("a").hasClass("disabled")){
                     return;
@@ -63,6 +70,7 @@ enterTerminal.directive("daySchedule", function (notifier, $location, settings) 
             };
 
             $scope.$watch("currentDate", function(newDate, oldDate) {
+                //TODO:изучить!
                 $scope.nextDayLabel = new Date(moment($scope.currentDate).add('days', 1)).getDate();
                 $scope.prevDayLabel = new Date(moment($scope.currentDate).subtract('days', 1)).getDate();
             });

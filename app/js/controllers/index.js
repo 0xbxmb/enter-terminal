@@ -21,7 +21,6 @@ enterTerminal.controller('IndexCtrl', function ($rootScope, $scope, $location,  
         $rootScope.to = ticketOperations;
         $rootScope.m  = menu;
 
-
         $rootScope.$on("wampDisconnected", function (rejectObject) {
             notifier.connection.isConnected = false;
             $rootScope.user = null;
@@ -38,6 +37,7 @@ enterTerminal.controller('IndexCtrl', function ($rootScope, $scope, $location,  
         $rootScope.menu = data;
         $rootScope.$broadcast("menu")
     });
+
 
     $rootScope.ticketProduct = null;
 

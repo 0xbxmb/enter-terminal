@@ -58,6 +58,7 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, $timeou
                 return q.promise;
 
             } else {
+
                 var date = date.format("DD.MM.YYYY");
                 var url = HTTP_GET_PRODUCT_DAY_SCHEDULE_URL
                     .replace("{productid}", params[0])
@@ -68,8 +69,6 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, $timeou
         },
 
         confirmTicket = function (id) {
-
-            //TODO:
             var url = HTTP_CONFIRM_TICKET_URL
                         .replace("{ticketid}", id)
             var promise = defferedHttpJsonp.get(url)
