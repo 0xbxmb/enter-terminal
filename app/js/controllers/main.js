@@ -9,7 +9,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
 
     var
         getMonthEvents = function(date) {
-            $rootScope.to.getMonthSchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1])
+            ticketOperations.getMonthSchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1])
                 .then(function (data) {
                     $scope.monthSchedule = data;
                 }, function (data) {
@@ -18,8 +18,9 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         },
 
         getDayEvents = function(date) {
-            $rootScope.to.getDaySchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1, date.getDate()])
+            ticketOperations.getDaySchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1, date.getDate()])
                 .then(function (data) {
+                    debugger;
                     $scope.daySchedule = data;
                 }, function (data) {
                     notifier.errors.currentMessage = data || data.desc;
@@ -35,7 +36,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         },
 
         timeClick = function(item){
-            $rootScope.to.selectProduct([$scope.selectedService.Id, null, null], {
+            ticketOperations.selectProduct([$scope.selectedService.Id, null, null], {
                 currentDate: $scope.currentDate,
                 item: item
             }).then(function (data) {
@@ -58,7 +59,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
     };
 
     $scope.toQueueMethod = function () {
-        $rootScope.to.selectProduct([$scope.selectedService.Id, null, null]).then(function (data) {
+        ticketOperations.selectProduct([$scope.selectedService.Id, null, null]).then(function (data) {
             $rootScope.ticketProduct = data;
             $location.path("/ticketProduct");
         }, function (data) {
@@ -74,6 +75,9 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
             getMonthEvents(newDate);
         }
     });
+
+
+
 
     $rootScope.footer = {
         templateUrl:"templates/footers/main.html",

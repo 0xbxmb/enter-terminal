@@ -28,7 +28,7 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
     };
 
     $scope.cancel = function (product) {
-        $rootScope.to.unselectProduct(product.Id).then(function (data) {
+        ticketOperations.unselectProduct(product.Id).then(function (data) {
             $rootScope.ticketProduct = data;
             if (!data) {
                 $location.path("/main");
@@ -45,7 +45,7 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
         actions: {
 
             cancelAll: function () {
-                $rootScope.to.cancelTicket($rootScope.ticketProduct.Id).then( function (data) {
+                ticketOperations.cancelTicket($rootScope.ticketProduct.Id).then( function (data) {
                     $rootScope.ticketProduct = null;
                     $location.path("/main");
                 }, function (data) {
@@ -58,7 +58,7 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
             },
 
             printTicket: function () {
-                $rootScope.to.confirmTicket($rootScope.ticketProduct.Id).then(function (data) {
+                ticketOperations.confirmTicket($rootScope.ticketProduct.Id).then(function (data) {
                     $scope.ticket = data;
                     $rootScope.footer = null;
                 }, function (data) {

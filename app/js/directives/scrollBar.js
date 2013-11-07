@@ -11,6 +11,9 @@ enterTerminal.directive('scrollBar', function ($window) {
         replace: true,
         transclude: true,
         template: '<div class="scroll-pane" ng-transclude></div>',
+        scope: {
+            applyHeightCallback: "="
+        },
 
         link: function (scope, element, attrs) {
 
@@ -19,13 +22,7 @@ enterTerminal.directive('scrollBar', function ($window) {
                 autoReinitialiseDelay: 100
             });
 
-            var
-                api = element.data('jsp'),
-                applyActualHeight = function () {
-                    var scrollPaneHeight = $(".scroll-container").outerHeight(true) - ($(".general-view-caption").outerHeight(true) +$(".footer").outerHeight(true) + 60),
-                        margin = 5;
-                    element.css("height", scrollPaneHeight + margin);
-                };
+            var api = element.data('jsp');
 
             scope.$watch(function () {
                 return element.find('.' + attrs.scrollpane).length;
@@ -33,10 +30,12 @@ enterTerminal.directive('scrollBar', function ($window) {
                 api.reinitialise();
             });
 
-            applyActualHeight();
+            if(scope.applyHeightCallback){
+                scope.applyHeightCallback(element);
+            }
 
             angular.element($window).bind('resize', function (data) {
-                applyActualHeight();
+                scope.applyHeightCallback(element);
                 scope.$apply();
             });
 

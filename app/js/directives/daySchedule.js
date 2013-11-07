@@ -10,6 +10,7 @@ enterTerminal.directive("daySchedule", function (notifier, $location, settings) 
         templateUrl = "templates/daySchedule.html",
         replace = true,
         restrict = 'E',
+
         scope = {
             currentDate: "=",
             schedule: "=",
@@ -62,6 +63,16 @@ enterTerminal.directive("daySchedule", function (notifier, $location, settings) 
                                                                                 .subtract("days",1).format());
             };
 
+            $scope.applyHeightCallback = function(element) {
+                var scrollPaneHeight = $(".scroll-container").outerHeight(true) - ($(".general-view-caption").outerHeight(true) +$(".footer").outerHeight(true) + 60),
+                    margin = 5;
+                element.css("height", scrollPaneHeight + margin);
+            };
+
+            $scope.$watch("schedule", function (data) {
+                debugger;
+            });
+
             $scope.select = function($event, item){
                 if($($event.target).closest("a").hasClass("disabled")){
                     return;
@@ -70,7 +81,6 @@ enterTerminal.directive("daySchedule", function (notifier, $location, settings) 
             };
 
             $scope.$watch("currentDate", function(newDate, oldDate) {
-                //TODO:изучить!
                 $scope.nextDayLabel = new Date(moment($scope.currentDate).add('days', 1)).getDate();
                 $scope.prevDayLabel = new Date(moment($scope.currentDate).subtract('days', 1)).getDate();
             });

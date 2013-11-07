@@ -109,7 +109,7 @@ enterTerminal.directive("monthSchedule", function (notifier, $location, settings
             };
 
             $scope.isEnabledBackMonthButton = function () {
-                return $scope.currentDate > new Date();
+                return $scope.currentDate.getMonth() > (new Date()).getMonth();
             };
 
             $scope.isEnabledNextMonthButton = function () {
