@@ -1,6 +1,7 @@
 /**
  * Created by i.sungurov on 10.10.13.
  */
+
 enterTerminal.service('settings', function (localStorageService) {
 
     "use strict";
@@ -21,6 +22,11 @@ enterTerminal.service('settings', function (localStorageService) {
             clientId: {
                 value: "",
                 defaultValue: "terminal"
+            },
+
+            httpServerUrl: {
+                value: "",
+                defaultValue: "http://localhost:80/"
             },
 
             bookingByRecord: {

@@ -2,7 +2,7 @@
  * Created by i.sungurov on 03.10.13.
  */
 
-enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log,  $location, $timeout, ticketOperations, notifier ) {
+enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log,  $location, $timeout, ticketOperations, notifier, settings ) {
 
     'use strict';
 
@@ -26,6 +26,8 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
         $rootScope.ticketProduct = null;
         $location.path("/main");
     };
+
+    $scope.canCancelService = settings.settings.allowMultitickets.value;
 
     $scope.cancel = function (product) {
         ticketOperations.unselectProduct(product.Id).then(function (data) {
@@ -74,8 +76,4 @@ enterTerminal.controller('TicketProductCtrl', function ($rootScope, $scope, $log
             $timeout($scope.finish, showTicketDelay);
         }
     });
-
-    //TODO:
-//    $rootScope.footer.actions.printTicket();
-    //TODO:
 });

@@ -20,7 +20,6 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         getDayEvents = function(date) {
             ticketOperations.getDaySchedule([$scope.selectedService.ProductId, date.getFullYear(), date.getMonth() + 1, date.getDate()])
                 .then(function (data) {
-                    debugger;
                     $scope.daySchedule = data;
                 }, function (data) {
                     notifier.errors.currentMessage = data || data.desc;
@@ -64,6 +63,7 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
             $location.path("/ticketProduct");
         }, function (data) {
             notifier.errors.currentMessage = data.desc;
+            $location.path("/main");
         });
     };
 

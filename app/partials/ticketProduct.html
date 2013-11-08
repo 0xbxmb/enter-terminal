@@ -7,7 +7,7 @@
                 <div class="item" ng-repeat="product in ticketProduct.Products">
                     <div class="date text-center">{{getDate(product.StartTime)}}<br>{{getTime(product.StartTime)}}</div>
                     <div class="info">{{product.Name}}</div>
-             <!--       <div class="cancel text-center"><a href="" ng-click="cancel(product)">Отменить</a></div>-->
+                    <div class="cancel text-center" ng-show="canCancelService"><a href="" ng-click="cancel(product)">Отменить</a></div>
                 </div>
             </div>
         <!--</scroll-bar>-->

@@ -37,7 +37,6 @@ enterTerminal.directive("daySchedule", function (notifier, $location, settings) 
                 return str.charAt(0).toUpperCase() + str.slice(1);
             };
 
-
             $scope.dayOfWeek = function(date){
                 if(date) {
                     return $scope.capitalizeString(moment($scope.currentDate).format("dddd, D MMMM "));
@@ -68,10 +67,6 @@ enterTerminal.directive("daySchedule", function (notifier, $location, settings) 
                     margin = 5;
                 element.css("height", scrollPaneHeight + margin);
             };
-
-            $scope.$watch("schedule", function (data) {
-                debugger;
-            });
 
             $scope.select = function($event, item){
                 if($($event.target).closest("a").hasClass("disabled")){

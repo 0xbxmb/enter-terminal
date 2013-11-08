@@ -23,14 +23,16 @@
     </div>
 
 
-    <!---->
+    <!--hidden-->
 
-    <div class="m-t-lg2 hidden" ng-show="temp.selectedService">
+
+
+    <div class="m-t-lg2" ng-show="temp.selectedService">
 
         <div class="row m-t-lg2">
             <div class="buttons-list">
 
-                <div class="buttons-list-item m-b-sm col-sm-6 ng-scope">
+                <div class="buttons-list-item m-b-sm col-sm-6 ng-scope" ng-show="settings.settings.liveQueue.value">
                     <div class="as-table">
                         <a class="centrify text-center" href="" ng-click="toQueue(selectedService)">
                             <div style="position: relative">
@@ -41,7 +43,7 @@
                     </div>
                 </div>
 
-                <div class="buttons-list-item m-b-sm col-sm-6 ng-scope">
+                <div class="buttons-list-item m-b-sm col-sm-6 ng-scope" ng-show="settings.settings.bookingByRecord.value">
                     <div class="as-table">
                         <a class="centrify text-center" href="" ng-click="record(selectedService)">
                             <div style="position: relative">

@@ -15,14 +15,24 @@ enterTerminal.service('httpTicketOperations', function ($q, $log, $http, $timeou
     var
         selectProduct = function (params, dateTime) {
 
-            var formattedDateTime = moment(dateTime.currentDate)
-                                        .hours(Math.floor(dateTime.item.Minutes/60))
-                                        .minutes(dateTime.item.Minutes%60)
-                                        .format("DD.MM.YYYY-HH:mm");
-
             var url = HTTP_RESERVE_TICKET_PRODUCT_URL
-                .replace("{productmenulinkid}", params[0])
-                .replace("{datetime}", formattedDateTime);
+                .replace("{productmenulinkid}", params[0]);
+
+
+            if(dateTime){
+
+                var formattedDateTime = moment(dateTime.currentDate)
+                    .hours(Math.floor(dateTime.item.Minutes/60))
+                    .minutes(dateTime.item.Minutes%60)
+                    .format("DD.MM.YYYY-HH:mm");
+
+                url = url.replace("{datetime}", formattedDateTime);
+
+            } else{
+
+                url = url.replace("{datetime}", "");
+            }
+
 
             return defferedHttpJsonp.get(url);;
         },

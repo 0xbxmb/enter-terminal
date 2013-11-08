@@ -110,9 +110,12 @@ enterTerminal.directive("menu", function (notifier, $location, settings) {
             $scope.record = function (service) {
                 $scope.recordMethod(service);
             };
+
             $scope.toQueue = function (service) {
                 $scope.toQueueMethod(service);
             };
+
+            $scope.settings = settings;
         };
 
     return {
