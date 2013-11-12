@@ -31,8 +31,8 @@ enterTerminal.directive("menu", function (notifier, $location, settings) {
 
         getDataForDisplay = function (data, id) {
 
-            var forDisplay = [],
-                i;
+            var i,
+                forDisplay = [];
 
             for (i = 0; i < data.Items.length; i += 1) {
                 if ((data.Items[i].ParentItem === id) ||
@@ -97,7 +97,7 @@ enterTerminal.directive("menu", function (notifier, $location, settings) {
             $scope.temp = temp;
 
             $scope.back = function () {
-
+                debugger;
                 temp.selectedService = null;
                 temp.currentParent = temp.currentParent.ParentItem;
                 temp.buttonStates.back.isActive = (temp.currentParent !== null);

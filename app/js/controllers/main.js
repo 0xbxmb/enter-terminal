@@ -76,9 +76,6 @@ enterTerminal.controller('MainCtrl', function ($rootScope, $scope, $log, $locati
         }
     });
 
-
-
-
     $rootScope.footer = {
         templateUrl:"templates/footers/main.html",
         actions: {

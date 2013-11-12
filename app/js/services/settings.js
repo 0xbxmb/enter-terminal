@@ -16,7 +16,7 @@ enterTerminal.service('settings', function (localStorageService) {
 
             wampServerUrl: {
                 value: "",
-                defaultValue: "ws://localhost:81"
+                defaultValue: "ws://" + window.location.hostname + ":81"
             },
 
             clientId: {
@@ -26,7 +26,7 @@ enterTerminal.service('settings', function (localStorageService) {
 
             httpServerUrl: {
                 value: "",
-                defaultValue: "http://localhost:80/"
+                defaultValue: "http://" + window.location.host
             },
 
             bookingByRecord: {
